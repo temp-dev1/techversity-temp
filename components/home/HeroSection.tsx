@@ -26,9 +26,11 @@ const HeroSection = () => {
   className="
     mb-6 font-bold text-[#1a1a1a] 
     text-[clamp(1.8rem,4vw,3rem)]
-    leading-tight 
+    leading-tight
+    break-words
+    lg:max-w-[90%]  
     whitespace-normal
-    xl:whitespace-nowrap 
+    xl:whitespace-normal
     max-w-full
   "
 >
