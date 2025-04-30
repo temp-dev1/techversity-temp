@@ -30,7 +30,7 @@ const HeroSection = () => {
     break-words
     lg:max-w-[90%]  
     whitespace-normal
-    xl:whitespace-normal
+    xl:whitespace-nowrap
     max-w-full
   "
 >
