@@ -9,74 +9,46 @@ interface CourseCardProps {
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   return (
-    <div className="group relative overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-      <div className="relative h-48 overflow-hidden">
+    <div className="overflow-hidden rounded-xl bg-white shadow-lg">
+      <div className="relative h-[200px]">
         <img
           src={course.image}
           alt={course.title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="h-full w-full object-cover"
         />
-        <div className="absolute left-0 top-0 rounded-br-lg bg-[#FF5C00] px-3 py-1 text-sm font-semibold text-white">
-          {course.category}
-        </div>
       </div>
       
       <div className="p-6">
-        <div className="mb-2 flex items-center justify-between">
-          <span className="text-sm font-medium text-gray-500">{course.duration}</span>
-          <span className="text-sm font-medium text-gray-500">{course.level}</span>
-        </div>
-        
-        <h3 className="mb-3 text-xl font-bold text-[#05264E] transition-colors group-hover:text-[#0099FF]">
+        <h3 className="mb-4 text-xl font-bold text-[#05264E]">
           {course.title}
         </h3>
         
-        <div className="mb-3 flex items-center">
+        <div className="mb-4 flex items-center gap-2">
           <div className="flex items-center">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                size={16}
-                className={`${
-                  i < Math.floor(course.rating) ? "fill-[#FF5C00] text-[#FF5C00]" : "text-gray-300"
-                }`}
-              />
-            ))}
+            <Star className="h-4 w-4 fill-[#FF9800] text-[#FF9800]" />
+            <span className="ml-1 text-sm">{course.rating}</span>
           </div>
-          <span className="ml-2 text-sm text-gray-600">
-            ({course.reviews} reviews)
-          </span>
-        </div>
-        
-        <div className="mb-4">
-          <div className="flex flex-wrap gap-2">
-            {course.features.slice(0, 3).map((feature, index) => (
-              <span
-                key={index}
-                className="rounded-full bg-[#0099FF]/10 px-3 py-1 text-xs font-medium text-[#0099FF]"
-              >
-                {feature}
-              </span>
-            ))}
+          <span className="text-gray-400">|</span>
+          <div className="flex items-center gap-1">
+            <span className="text-gray-400">👤</span>
+            <span className="text-sm text-gray-600">{course.reviews} Students</span>
           </div>
         </div>
         
-        <div className="mb-4 flex items-center justify-between">
-          <div>
-            <span className="mr-2 text-lg font-bold text-[#05264E]">
-              ₹{course.discountedPrice.toLocaleString()}
-            </span>
-            <span className="text-sm text-gray-500 line-through">
-              ₹{course.price.toLocaleString()}
-            </span>
+        <div className="mb-6">
+          <div className="flex items-center justify-between text-sm">
+            <div className="font-medium">Next Batch</div>
+            <div className="rounded-full bg-orange-500 px-3 py-1 text-xs text-white">
+              01st May,2025
+            </div>
           </div>
-          <span className="rounded-full bg-[#FF5C00]/10 px-3 py-1 text-sm font-medium text-[#FF5C00]">
-            {Math.round(((course.price - course.discountedPrice) / course.price) * 100)}% OFF
-          </span>
+          <div className="mt-1 text-xs text-gray-500">in 1 days</div>
         </div>
         
-        <Button variant="blue" className="w-full">
-          View Details
+        <Button 
+          className="w-full bg-[#8A3FEF] text-white hover:bg-[#7B2EE0] text-sm font-medium py-5"
+        >
+          Know More
         </Button>
       </div>
     </div>
