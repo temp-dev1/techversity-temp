@@ -9,7 +9,9 @@ export interface Course {
   price: number;
   discountedPrice: number;
   nextBatch: string;
+  category: string;
 }
+
 export const courses: Course[] = [
   {
     id: 1,
@@ -21,7 +23,8 @@ export const courses: Course[] = [
     level: "Beginner to Advanced",
     price: 45999,
     discountedPrice: 35999,
-    nextBatch: "1st May, 2025"
+    nextBatch: "1st May, 2025",
+    category: "Web Development"
   },
   {
     id: 2,
@@ -33,7 +36,8 @@ export const courses: Course[] = [
     level: "Intermediate",
     price: 49999,
     discountedPrice: 39999,
-    nextBatch: "10th May, 2025"
+    nextBatch: "10th May, 2025",
+    category: "Data Science"
   },
   {
     id: 3,
@@ -45,7 +49,8 @@ export const courses: Course[] = [
     level: "Beginner",
     price: 41999,
     discountedPrice: 31999,
-    nextBatch: "15th May, 2025"
+    nextBatch: "15th May, 2025",
+    category: "Design"
   },
   {
     id: 4,
@@ -57,7 +62,8 @@ export const courses: Course[] = [
     level: "Intermediate",
     price: 44999,
     discountedPrice: 34999,
-    nextBatch: "20th May, 2025"
+    nextBatch: "20th May, 2025",
+    category: "Mobile Development"
   },
   {
     id: 5,
@@ -69,7 +75,8 @@ export const courses: Course[] = [
     level: "Advanced",
     price: 59999,
     discountedPrice: 49999,
-    nextBatch: "25th May, 2025"
+    nextBatch: "25th May, 2025",
+    category: "Cloud"
   },
   {
     id: 6,
@@ -81,7 +88,8 @@ export const courses: Course[] = [
     level: "Beginner",
     price: 42999,
     discountedPrice: 32999,
-    nextBatch: "1st June, 2025"
+    nextBatch: "1st June, 2025",
+    category: "Security"
   },
   {
     id: 7,
@@ -93,7 +101,8 @@ export const courses: Course[] = [
     level: "Intermediate",
     price: 45999,
     discountedPrice: 35999,
-    nextBatch: "5th June, 2025"
+    nextBatch: "5th June, 2025",
+    category: "DevOps"
   },
   {
     id: 8,
@@ -105,7 +114,8 @@ export const courses: Course[] = [
     level: "Intermediate",
     price: 47999,
     discountedPrice: 37999,
-    nextBatch: "10th June, 2025"
+    nextBatch: "10th June, 2025",
+    category: "Mobile Development"
   },
   {
     id: 9,
@@ -117,7 +127,8 @@ export const courses: Course[] = [
     level: "Beginner",
     price: 39999,
     discountedPrice: 29999,
-    nextBatch: "15th June, 2025"
+    nextBatch: "15th June, 2025",
+    category: "Data Science"
   },
   {
     id: 10,
@@ -129,6 +140,7 @@ export const courses: Course[] = [
     level: "Advanced",
     price: 54999,
     discountedPrice: 44999,
-    nextBatch: "20th June, 2025"
+    nextBatch: "20th June, 2025",
+    category: "AI & Machine Learning"
   }
 ];
