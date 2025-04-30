@@ -15,6 +15,5 @@ export const NAVBAR_LINKS = [
   { title: "Home", href: "/" },
   { title: "About Us", href: "#about" },
   { title: "Courses", href: "/courses" },
-  { title: "Placements", href: "#placements" },
   { title: "Contact Us", href: "#contact" },
 ];
