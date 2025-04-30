@@ -25,11 +25,12 @@ const HeroSection = () => {
 <h1
   className="
     mb-6 font-bold text-[#1a1a1a] 
-    text-[clamp(1.8rem,4vw,3rem)]
-    leading-tight 
-    max-w-[600px] 
-    sm:max-w-[700px] 
-    lg:max-w-[40vw]
+     text-[clamp(1.8rem,4vw,3rem)]
+     leading-tight
+     break-words
+     lg:max-w-[90%]  
+     whitespace-normal
+     max-w-full
   "
 >
   Start Your Upskilling Journey
