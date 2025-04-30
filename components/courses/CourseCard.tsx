@@ -33,11 +33,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           <span>📈 {course.level}</span>
         </div>
 
-        <div className="space-y-1 text-xs">
-          {course.features.map((feature, index) => (
-            <div key={index}>✅ {feature}</div>
-          ))}
-        </div>
+
 
         <div className="flex justify-between items-center pt-2">
           <div>
