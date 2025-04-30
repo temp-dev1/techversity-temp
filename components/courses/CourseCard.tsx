@@ -9,47 +9,40 @@ interface CourseCardProps {
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   return (
-    <div className="overflow-hidden rounded-xl bg-white shadow-lg">
-      <div className="relative h-[200px]">
-        <img
-          src={course.image}
-          alt={course.title}
-          className="h-full w-full object-cover"
-        />
+    <div className="rounded-xl overflow-hidden shadow-md bg-white transition hover:shadow-xl">
+      <div className="relative h-[180px]">
+        <img src={course.image} alt={course.title} className="object-cover h-full w-full" />
+        <span className="absolute top-2 left-2 bg-[#8A3FEF] text-white text-xs px-3 py-1 rounded-full">
+          {course.category}
+        </span>
       </div>
-      
-      <div className="p-6">
-        <h3 className="mb-4 text-xl font-bold text-[#05264E]">
-          {course.title}
-        </h3>
-        
-        <div className="mb-4 flex items-center gap-2">
-          <div className="flex items-center">
-            <Star className="h-4 w-4 fill-[#FF9800] text-[#FF9800]" />
-            <span className="ml-1 text-sm">{course.rating}</span>
-          </div>
-          <span className="text-gray-400">|</span>
-          <div className="flex items-center gap-1">
-            <span className="text-gray-400">👤</span>
-            <span className="text-sm text-gray-600">{course.reviews} Students</span>
-          </div>
+
+      <div className="p-4 space-y-3">
+        <h2 className="text-lg font-semibold text-[#05264E]">{course.title}</h2>
+
+        <div className="flex items-center text-sm text-gray-600">
+          <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />
+          <span className="ml-1">{course.rating} ({course.reviews} reviews)</span>
         </div>
-        
-        <div className="mb-6">
-          <div className="flex items-center justify-between text-sm">
-            <div className="font-medium">Next Batch</div>
-            <div className="rounded-full bg-orange-500 px-3 py-1 text-xs text-white">
-              01st May,2025
-            </div>
-          </div>
-          <div className="mt-1 text-xs text-gray-500">in 1 days</div>
+
+        <div className="flex justify-between text-xs text-gray-500">
+          <span>📅 {course.duration}</span>
+          <span>📈 {course.level}</span>
         </div>
-        
-        <Button 
-          className="w-full bg-[#8A3FEF] text-white hover:bg-[#7B2EE0] text-sm font-medium py-5"
-        >
-          Know More
-        </Button>
+
+        <div className="space-y-1 text-xs">
+          {course.features.map((feature, index) => (
+            <div key={index}>✅ {feature}</div>
+          ))}
+        </div>
+
+        <div className="flex justify-between items-center pt-2">
+          <div>
+            <span className="text-[#8A3FEF] font-semibold text-base">₹{course.discountedPrice}</span>
+            <span className="line-through text-sm text-gray-400 ml-2">₹{course.price}</span>
+          </div>
+          <Button className="bg-[#8A3FEF] text-white px-4 py-2 text-sm hover:bg-[#6f2dd6]">Know More</Button>
+        </div>
       </div>
     </div>
   );
