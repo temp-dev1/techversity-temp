@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Book, GraduationCap, Tag, Clock } from "lucide-react";
-import { allCourses } from "@/data/courses";
+import { courses } from "@/data/courses";
 import CourseCard from "@/components/courses/CourseCard";
 import CourseFilters from "@/components/courses/CourseFilters";
 import { Button } from "@/components/ui/button";
