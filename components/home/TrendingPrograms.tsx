@@ -67,14 +67,15 @@ const TrendingPrograms = () => {
                     </span>
                   </div>
 
-                  <div className="mt-6">
-                    <Link
-                      href="/courses"
-                      className="inline-block w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white text-center py-2 rounded font-semibold"
-                    >
-                      Know More
-                    </Link>
-                  </div>
+<div className="mt-4">
+  <Link
+    href="#"
+    className="inline-block w-full bg-[linear-gradient(90deg,_#C84CF5_0%,_#3AA1FF_100%)] text-white text-sm text-center py-1.5 rounded-md font-semibold"
+  >
+    Know More
+  </Link>
+</div>
+
                 </div>
               </div>
             );
