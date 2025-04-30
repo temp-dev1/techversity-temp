@@ -29,7 +29,6 @@ const HeroSection = () => {
      leading-tight
      break-words
      lg:max-w-[90%]  
-     whitespace-normal
      max-w-full
   "
 >
