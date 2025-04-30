@@ -90,7 +90,7 @@ const HeroSection = () => {
           {/* Right Column */}
           <div className="order-1 relative md:order-2">
             <img
-              src="https://images.pexels.com/photos/3771089/pexels-photo-3771089.jpeg"
+              src="https://8tmtkpbi5jtnv3qr.public.blob.vercel-storage.com/hero-NudSlcCQ1IL1SW6V0Ldo5K0jDluqeu.png"
               alt="Student learning"
               className="w-full rounded-2xl"
             />
