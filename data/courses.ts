@@ -81,7 +81,7 @@ export const courses: Course[] = [
   {
     id: 6,
     title: "Cybersecurity Fundamentals",
-    image: "https://images.pexels.com/photos/5380645/pexels-photo-5380645.jpeg",
+    image: "https://images.pexels.com/photos/30901560/pexels-photo-30901560/free-photo-of-scrabble-tiles-spelling-cybersecurity-concepts.jpeg",
     rating: 4.7,
     reviews: 390,
     duration: "4 Months",
