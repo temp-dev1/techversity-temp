@@ -24,7 +24,7 @@ const TrendingPrograms = () => {
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {courses.map((course) => {
+          {courses.slice(0, 6).map((course) => {
             const daysRemaining = getDaysRemaining(course.nextBatch);
 
             return (
@@ -69,7 +69,7 @@ const TrendingPrograms = () => {
 
                   <div className="mt-6">
                     <Link
-                      href="#"
+                      href="/courses"
                       className="inline-block w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white text-center py-2 rounded font-semibold"
                     >
                       Know More
@@ -79,6 +79,15 @@ const TrendingPrograms = () => {
               </div>
             );
           })}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link
+            href="/courses"
+            className="inline-block border border-black px-6 py-2 rounded font-semibold hover:bg-black hover:text-white transition"
+          >
+            Explore All
+          </Link>
         </div>
       </div>
     </section>
