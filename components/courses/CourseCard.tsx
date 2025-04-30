@@ -1,5 +1,8 @@
 import React from "react";
 import { Star } from "lucide-react";
+
+import type { Course } from "@/data/courses";
+
 import { courses } from "@/data/courses";
 import { Button } from "@/components/ui/button";
 
