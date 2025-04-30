@@ -22,9 +22,19 @@ const HeroSection = () => {
               </p>
             </div>
 
-<h1 className="mb-6 font-bold leading-tight text-[#1a1a1a] text-[clamp(1.5rem,4vw,3rem)] sm:whitespace-normal md:whitespace-nowrap">
+<h1
+  className="
+    mb-6 font-bold text-[#1a1a1a] 
+    text-[clamp(1.8rem,4vw,3rem)]
+    leading-tight 
+    whitespace-normal
+    xl:whitespace-nowrap 
+    max-w-full
+  "
+>
   Start Your Upskilling Journey
 </h1>
+
 
             <p className="mb-8 text-lg text-gray-600">
               Explore from our wide range of specialised programs and kickstart
