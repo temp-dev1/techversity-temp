@@ -1,108 +1,84 @@
 import React from "react";
 import Link from "next/link";
 import { courses } from "@/data/courses";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Star } from "lucide-react";
+import { Star, Users } from "lucide-react";
+import { parse } from "date-fns";
+
+// Helper function to calculate days remaining
+const getDaysRemaining = (batchDate: string) => {
+  const parsedDate = parse(batchDate, "do MMMM, yyyy", new Date());
+  const today = new Date();
+  const timeDiff = parsedDate.getTime() - today.getTime();
+  const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+  return dayDiff;
+};
 
 const TrendingPrograms = () => {
   return (
-    <section className="bg-gray-50 py-16">
+    <section className="bg-white py-16">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mb-12 text-center">
           <h2 className="mb-2 text-3xl font-bold text-[#05264E] md:text-4xl">
             Trending Specialization Programs
           </h2>
-          <p className="mx-auto max-w-2xl text-gray-600">
-            Explore our most popular courses designed to equip you with in-demand skills for today's job market.
-          </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {courses.map((course) => (
-            <div
-              key={course.id}
-              className="group relative overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-            >
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={course.image}
-                  alt={course.title}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute left-0 top-0 rounded-br-lg bg-[#FF5C00] px-3 py-1 text-sm font-semibold text-white">
-                  {course.category}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {courses.map((course) => {
+            const daysRemaining = getDaysRemaining(course.nextBatch);
+
+            return (
+              <div
+                key={course.id}
+                className="overflow-hidden rounded-xl shadow-lg bg-white"
+              >
+                <div className="h-56 overflow-hidden rounded-t-xl">
+                  <img
+                    src={course.image}
+                    alt={course.title}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
-              </div>
-              
-              <div className="p-6">
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-500">{course.duration}</span>
-                  <span className="text-sm font-medium text-gray-500">{course.level}</span>
-                </div>
-                
-                <h3 className="mb-3 text-xl font-bold text-[#05264E] transition-colors group-hover:text-[#0099FF]">
-                  {course.title}
-                </h3>
-                
-                <div className="mb-3 flex items-center">
-                  <div className="flex items-center">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        size={16}
-                        className={`${
-                          i < Math.floor(course.rating) ? "fill-[#FF5C00] text-[#FF5C00]" : "text-gray-300"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <span className="ml-2 text-sm text-gray-600">
-                    ({course.reviews} reviews)
-                  </span>
-                </div>
-                
-                <div className="mb-4">
-                  <div className="flex flex-wrap gap-2">
-                    {course.features.slice(0, 3).map((feature, index) => (
-                      <span
-                        key={index}
-                        className="rounded-full bg-[#0099FF]/10 px-3 py-1 text-xs font-medium text-[#0099FF]"
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="mb-4 flex items-center justify-between">
-                  <div>
-                    <span className="mr-2 text-lg font-bold text-[#05264E]">
-                      ₹{course.discountedPrice.toLocaleString()}
+
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-[#05264E] mb-3">
+                    {course.title}
+                  </h3>
+
+                  <div className="flex items-center text-sm text-gray-600 mb-3">
+                    <span className="flex items-center text-[#FF5C00] mr-2">
+                      {course.rating.toFixed(1)}
+                      <Star size={16} className="ml-1 fill-[#FF5C00] text-[#FF5C00]" />
                     </span>
-                    <span className="text-sm text-gray-500 line-through">
-                      ₹{course.price.toLocaleString()}
+                    <span className="mx-2">|</span>
+                    <span className="flex items-center">
+                      <Users size={16} className="mr-1" />
+                      {course.reviews.toLocaleString()} Students
                     </span>
                   </div>
-                  <span className="rounded-full bg-[#FF5C00]/10 px-3 py-1 text-sm font-medium text-[#FF5C00]">
-                    {Math.round(((course.price - course.discountedPrice) / course.price) * 100)}% OFF
-                  </span>
+
+                  <div className="flex items-center justify-between border-t pt-4 text-sm">
+                    <span className="font-semibold">Next Batch</span>
+                    <span className="text-gray-600">
+                      in {daysRemaining} {daysRemaining === 1 ? "day" : "days"}
+                    </span>
+                    <span className="bg-[#FFB200] text-white text-xs px-3 py-1 rounded font-semibold">
+                      {course.nextBatch}
+                    </span>
+                  </div>
+
+                  <div className="mt-6">
+                    <Link
+                      href="#"
+                      className="inline-block w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white text-center py-2 rounded font-semibold"
+                    >
+                      Know More
+                    </Link>
+                  </div>
                 </div>
-                
-                <Button variant="blue" className="w-full">
-                  View Details
-                </Button>
               </div>
-            </div>
-          ))}
-        </div>
-        
-        <div className="mt-12 text-center">
-          <Button variant="outline" size="lg" asChild>
-            <Link href="/courses" className="group inline-flex items-center">
-              View All Courses
-              <ArrowRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Button>
+            );
+          })}
         </div>
       </div>
     </section>
