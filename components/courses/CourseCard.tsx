@@ -1,6 +1,6 @@
 import React from "react";
 import { Star } from "lucide-react";
-import { courses as allCourses } from "@/data/courses";
+import { courses } from "@/data/courses";
 import { Button } from "@/components/ui/button";
 
 interface CourseCardProps {
