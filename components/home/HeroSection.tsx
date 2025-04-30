@@ -5,8 +5,8 @@ import { Star } from 'lucide-react';
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen bg-white pt-24">
-      <div className="container mx-auto px-4 py-8 md:px-6 md:py-24">
+    <section className="relative bg-white pt-16">
+      <div className="container mx-auto px-4 py-8 md:px-6 md:py-12">
         <div className="grid items-center gap-8 md:grid-cols-2">
           {/* Left Column */}
           <div className="order-2 md:order-1">
@@ -22,7 +22,7 @@ const HeroSection = () => {
               </p>
             </div>
 
-            <h1 className="mb-6 text-4xl font-bold leading-tight text-[#1a1a1a] md:text-5xl lg:text-6xl">
+            <h1 className="mb-6 text-3xl font-bold leading-tight text-[#1a1a1a] md:text-4xl lg:text-5xl whitespace-nowrap">
               Start Your Upskilling Journey
             </h1>
             <p className="mb-8 text-lg text-gray-600">
@@ -31,12 +31,14 @@ const HeroSection = () => {
             </p>
 
             <div className="mb-8 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-              <Button className="bg-[#2196F3] px-8 py-3 text-lg font-semibold hover:bg-[#1976D2] md:py-6">
+              <Button 
+                className="h-14 px-8 text-lg font-semibold bg-[#2196F3] hover:bg-[#1976D2]"
+              >
                 Explore Now
               </Button>
               <Button
                 variant="outline"
-                className="border-2 border-[#1a1a1a] px-8 py-3 text-lg font-semibold text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white md:py-6"
+                className="h-14 px-8 text-lg font-semibold border-2 border-[#1a1a1a] text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white"
               >
                 Talk to Us
               </Button>
@@ -79,6 +81,31 @@ const HeroSection = () => {
               alt="Student learning"
               className="w-full rounded-2xl"
             />
+            
+            {/* Course Cards */}
+            <div className="absolute -top-4 right-4 w-48 transform rotate-6">
+              <div className="bg-white rounded-lg shadow-lg p-3">
+                <div className="text-sm font-semibold">Course</div>
+                <div className="text-lg font-bold">Machine Learning</div>
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-[#FF9800] text-[#FF9800]" />
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            <div className="absolute bottom-4 -left-4 w-48 transform -rotate-6">
+              <div className="bg-white rounded-lg shadow-lg p-3">
+                <div className="text-sm font-semibold">Course</div>
+                <div className="text-lg font-bold">Data Science</div>
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-[#FF9800] text-[#FF9800]" />
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
