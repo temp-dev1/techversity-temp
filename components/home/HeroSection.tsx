@@ -13,7 +13,7 @@ const HeroSection = () => {
             {/* Wipro Logo */}
             <div className="mb-8 flex items-center">
               <img
-                src="https://media.licdn.com/dms/image/v2/D4E0BAQEINH3Vf1swig/company-logo_100_100/company-logo_100_100/0/1730379480485/wipro_logo?e=1751500800&v=beta&t=aFQ_fZd7zi5hHh81zQsDZYmlpNpLaApzy0wTHXdZpi4"
+                src="/trusted.png"
                 alt="Wipro"
                 className="h-12 w-auto"
               />
@@ -34,13 +34,12 @@ const HeroSection = () => {
     sm:whitespace-normal
   "
 >
-  Start Your Upskilling Journey
+  Begin Your Journey to Professional Excellence
 </h1>
 
 
             <p className="mb-8 text-lg text-gray-600">
-              Explore from our wide range of specialised programs and kickstart
-              your career.
+              Unlock your potential with our specialized programs and start building your future today.
             </p>
 
             <div className="mb-8 flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
