@@ -28,26 +28,22 @@ const TrendingPrograms = () => {
 
   // Fetch courses from API
   useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await fetch("/api/courses");
-        if (!response.ok) {
-          throw new Error("Failed to fetch courses");
-        }
-        const data = await response.json();
-        setCourses(data); // Store the courses data
-      }  catch (error) {
-  if (error instanceof Error) {
-    setError(error.message);
-  } else {
-    setError("An unknown error occurred.");
-  }
-}
+  const fetchCourses = async () => {
+    try {
+      const res = await fetch("/api/courses");
+      const data = await res.json();
+      setFilteredCourses(data);
+    } catch (err) {
+      console.error("Error fetching courses:", err);
+      setError("Failed to load courses");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    };
+  fetchCourses();
+}, []);
 
-    fetchCourses();
-  }, []);
 
   // Helper function to calculate days remaining
   const getDaysRemaining = (batchDate: string) => {
