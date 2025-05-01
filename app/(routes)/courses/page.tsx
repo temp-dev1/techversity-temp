@@ -6,6 +6,8 @@ import { allCourses } from "@/data/courses";
 import CourseCard from "@/components/courses/CourseCard";
 import CourseFilters from "@/components/courses/CourseFilters";
 import { Button } from "@/components/ui/button";
+import React from "react";
+
 
 export default function CoursesPage() {
   const [filteredCourses, setFilteredCourses] = useState(allCourses);
@@ -79,11 +81,11 @@ export default function CoursesPage() {
   };
 
   // Component with scaling effect for each CourseCard
-  const CourseCardWithScaling = ({ course }: { course: any }) => (
-    <div className="group transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
-      <CourseCard course={course} />
-    </div>
-  );
+  const CourseCardWithScaling: React.FC<{ course: any }> = ({ course }) => (
+  <div className="group transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
+    <CourseCard course={course} />
+  </div>
+);
 
   return (
     <div className="min-h-screen bg-gray-50 pt-24">
