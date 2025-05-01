@@ -6,11 +6,33 @@ import CourseCard from "@/components/courses/CourseCard";
 import CourseFilters from "@/components/courses/CourseFilters";
 import { Button } from "@/components/ui/button";
 
+// Import Course type
+export interface Course {
+  _id: string; // Assuming this is from MongoDB
+  id: number;
+  title: string;
+  image: string;
+  rating: number;
+  reviews: number;
+  duration: string;
+  level: string;
+  price: number;
+  discountedPrice: number;
+  nextBatch: string;
+  category: string;
+  features: string[];
+}
+
 export default function CoursesPage() {
-  const [allCourses, setAllCourses] = useState([]);
-  const [filteredCourses, setFilteredCourses] = useState([]);
+  const [allCourses, setAllCourses] = useState<Course[]>([]);
+  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeFilters, setActiveFilters] = useState<any>({
+  const [activeFilters, setActiveFilters] = useState<{
+    categories: string[];
+    duration: string[];
+    level: string[];
+    priceRange: [number, number] | null;
+  }>({
     categories: [],
     duration: [],
     level: [],
@@ -21,7 +43,7 @@ export default function CoursesPage() {
     const fetchCourses = async () => {
       try {
         const res = await fetch("/api/courses");
-        const data = await res.json();
+        const data: Course[] = await res.json();
         setAllCourses(data);
         setFilteredCourses(data);
       } catch (err) {
@@ -73,9 +95,7 @@ export default function CoursesPage() {
       !activeFilters.level.includes("All Levels")
     ) {
       results = results.filter((course) =>
-        activeFilters.level.some((filter: string) =>
-          course.level.includes(filter)
-        )
+        activeFilters.level.includes(course.level)
       );
     }
 
@@ -94,11 +114,11 @@ export default function CoursesPage() {
     setSearchQuery(query);
   };
 
-  const handleFilterChange = (filters: any) => {
+  const handleFilterChange = (filters: typeof activeFilters) => {
     setActiveFilters(filters);
   };
 
-  const CourseCardWithScaling: React.FC<{ course: any }> = ({ course }) => (
+  const CourseCardWithScaling: React.FC<{ course: Course }> = ({ course }) => (
     <div className="group transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
       <CourseCard course={course} />
     </div>
@@ -155,7 +175,7 @@ export default function CoursesPage() {
 
         {filteredCourses.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {filteredCourses.map((course: any) => (
+            {filteredCourses.map((course) => (
               <CourseCardWithScaling key={course._id} course={course} />
             ))}
           </div>
