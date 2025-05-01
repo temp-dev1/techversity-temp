@@ -13,6 +13,7 @@ export async function connectDB() {
 
   if (!cached.promise) {
     cached.promise = mongoose.connect(MONGODB_URI, {
+      dbName: "tech1-zeta",
       bufferCommands: false,
     }).then((m) => m);
   }
