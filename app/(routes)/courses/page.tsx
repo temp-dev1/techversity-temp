@@ -2,15 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import { Book, GraduationCap, Tag, Clock } from "lucide-react";
-import { allCourses } from "@/data/courses";
 import CourseCard from "@/components/courses/CourseCard";
 import CourseFilters from "@/components/courses/CourseFilters";
 import { Button } from "@/components/ui/button";
 
-
-
 export default function CoursesPage() {
-  const [filteredCourses, setFilteredCourses] = useState(allCourses);
+  const [allCourses, setAllCourses] = useState([]);
+  const [filteredCourses, setFilteredCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilters, setActiveFilters] = useState<any>({
     categories: [],
@@ -20,9 +18,23 @@ export default function CoursesPage() {
   });
 
   useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch("/api/courses");
+        const data = await res.json();
+        setAllCourses(data);
+        setFilteredCourses(data);
+      } catch (err) {
+        console.error("Failed to fetch courses", err);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  useEffect(() => {
     let results = [...allCourses];
 
-    // Apply search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       results = results.filter(
@@ -32,15 +44,19 @@ export default function CoursesPage() {
       );
     }
 
-    // Apply category filters
-    if (activeFilters.categories.length > 0 && !activeFilters.categories.includes("All Categories")) {
+    if (
+      activeFilters.categories.length > 0 &&
+      !activeFilters.categories.includes("All Categories")
+    ) {
       results = results.filter((course) =>
         activeFilters.categories.includes(course.category)
       );
     }
 
-    // Apply duration filters
-    if (activeFilters.duration.length > 0 && !activeFilters.duration.includes("All Durations")) {
+    if (
+      activeFilters.duration.length > 0 &&
+      !activeFilters.duration.includes("All Durations")
+    ) {
       results = results.filter((course) => {
         const durationMonths = parseInt(course.duration);
         return activeFilters.duration.some((filter: string) => {
@@ -52,8 +68,10 @@ export default function CoursesPage() {
       });
     }
 
-    // Apply level filters
-    if (activeFilters.level.length > 0 && !activeFilters.level.includes("All Levels")) {
+    if (
+      activeFilters.level.length > 0 &&
+      !activeFilters.level.includes("All Levels")
+    ) {
       results = results.filter((course) =>
         activeFilters.level.some((filter: string) =>
           course.level.includes(filter)
@@ -61,16 +79,16 @@ export default function CoursesPage() {
       );
     }
 
-    // Apply price range filter
     if (activeFilters.priceRange) {
       const [min, max] = activeFilters.priceRange;
       results = results.filter(
-        (course) => course.discountedPrice >= min && course.discountedPrice <= max
+        (course) =>
+          course.discountedPrice >= min && course.discountedPrice <= max
       );
     }
 
     setFilteredCourses(results);
-  }, [searchQuery, activeFilters]);
+  }, [searchQuery, activeFilters, allCourses]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -80,12 +98,11 @@ export default function CoursesPage() {
     setActiveFilters(filters);
   };
 
-  // Component with scaling effect for each CourseCard
   const CourseCardWithScaling: React.FC<{ course: any }> = ({ course }) => (
-  <div className="group transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
-    <CourseCard course={course} />
-  </div>
-);
+    <div className="group transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
+      <CourseCard course={course} />
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gray-50 pt-24">
@@ -138,8 +155,8 @@ export default function CoursesPage() {
 
         {filteredCourses.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {filteredCourses.map((course) => (
-              <CourseCardWithScaling key={course.id} course={course} />
+            {filteredCourses.map((course: any) => (
+              <CourseCardWithScaling key={course._id} course={course} />
             ))}
           </div>
         ) : (
