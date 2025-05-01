@@ -12,7 +12,7 @@ const Footer = () => {
             <div className="mb-6 flex items-center">
               <div className="relative w-[180px] h-[40px]">
                 <Image
-                  src="/techversity_footer.png"
+                  src="/technoversity_footer.png"
                   alt="TechVersity Logo"
                   fill
                   className="object-contain"
