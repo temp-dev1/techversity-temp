@@ -6,7 +6,7 @@ import { Star, Users } from "lucide-react";
 
 // Define the type of course based on your models/Course.ts
 interface Course {
-  _id: string;  // MongoDB default _id
+  _id: string;
   id: number;
   title: string;
   image: string;
@@ -23,29 +23,28 @@ interface Course {
 
 const TrendingPrograms = () => {
   const [courses, setCourses] = useState<Course[]>([]);
+  const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch courses from API
   useEffect(() => {
-  const fetchCourses = async () => {
-    try {
-      const res = await fetch("/api/courses");
-      const data = await res.json();
-      setFilteredCourses(data);
-    } catch (err) {
-      console.error("Error fetching courses:", err);
-      setError("Failed to load courses");
-    } finally {
-      setLoading(false);
-    }
-  };
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch("/api/courses");
+        const data = await res.json();
+        setCourses(data);
+        setFilteredCourses(data);
+      } catch (err) {
+        console.error("Error fetching courses:", err);
+        setError("Failed to load courses");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchCourses();
-}, []);
+    fetchCourses();
+  }, []);
 
-
-  // Helper function to calculate days remaining
   const getDaysRemaining = (batchDate: string) => {
     const parsedDate = new Date(batchDate);
     const today = new Date();
@@ -67,7 +66,7 @@ const TrendingPrograms = () => {
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {courses.slice(0, 6).map((course) => (
+          {filteredCourses.slice(0, 6).map((course) => (
             <div
               key={course.id}
               className="group overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-xl"
