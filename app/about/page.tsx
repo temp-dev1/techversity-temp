@@ -11,8 +11,8 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen pt-20">
       <AboutHero />
-      <AboutStats />
       <AboutContent />
+      <AboutStats />
       <AboutFeatures />
       <AboutCertifications />
       <AboutTeam />
