@@ -1,11 +1,22 @@
-"use client";
+'use client';
 
 import React, { useRef, useState, useCallback, useEffect } from "react";
-import { experts } from "@/data/experts";
 import { Linkedin, ChevronLeft, ChevronRight } from "lucide-react";
+
+interface Expert {
+  id: number;
+  name: string;
+  role: string;
+  company: string;
+  companyLogo: string;
+  image: string;
+  experience: string;
+  linkedin: string;
+}
 
 const IndustryExperts = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [experts, setExperts] = useState<Expert[]>([]);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
@@ -74,6 +85,20 @@ const IndustryExperts = () => {
     scrollRef.current.scrollLeft = scrollLeft - walk;
     checkScrollButtons();
   };
+
+  useEffect(() => {
+    const fetchExperts = async () => {
+      try {
+        const res = await fetch('/api/experts'); // Fetch experts from the API
+        const data: Expert[] = await res.json();
+        setExperts(data);
+      } catch (error) {
+        console.error('Error fetching experts:', error);
+      }
+    };
+
+    fetchExperts();
+  }, []);
 
   useEffect(() => {
     const element = scrollRef.current;
