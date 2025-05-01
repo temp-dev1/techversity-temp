@@ -1,15 +1,15 @@
-// pages/api/courses.ts
+// app/api/courses/route.ts
 import { connectDB } from "@/lib/db";
 import Course from "@/models/Course";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export async function GET() {
   try {
     await connectDB();
-    const courses = await Course.find({}).lean(); // Fetch courses from DB
-    res.status(200).json(courses); // Send courses as response
+    const courses = await Course.find({}).lean();
+    return NextResponse.json(courses);
   } catch (error) {
-    console.error("Failed to fetch courses:", error);
-    res.status(500).json({ message: "Internal server error" });
+    console.error("API error:", error);
+    return NextResponse.json({ message: "Failed to fetch courses" }, { status: 500 });
   }
 }
