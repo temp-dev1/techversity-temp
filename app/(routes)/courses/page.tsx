@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Book, GraduationCap, Tag, Clock } from "lucide-react";
-import { courses as allCourses } from "@/data/courses";
+import { allCourses } from "@/data/courses";
 import CourseCard from "@/components/courses/CourseCard";
 import CourseFilters from "@/components/courses/CourseFilters";
 import { Button } from "@/components/ui/button";
@@ -78,6 +78,13 @@ export default function CoursesPage() {
     setActiveFilters(filters);
   };
 
+  // Component with scaling effect for each CourseCard
+  const CourseCardWithScaling = ({ course }: { course: any }) => (
+    <div className="group transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
+      <CourseCard course={course} />
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-gray-50 pt-24">
       <div className="bg-[#05264E] py-12">
@@ -130,7 +137,7 @@ export default function CoursesPage() {
         {filteredCourses.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredCourses.map((course) => (
-              <CourseCard key={course.id} course={course} />
+              <CourseCardWithScaling key={course.id} course={course} />
             ))}
           </div>
         ) : (
