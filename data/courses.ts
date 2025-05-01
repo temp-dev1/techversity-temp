@@ -2,7 +2,7 @@ import { connectDB } from "../lib/db";
 import Course from "../models/Course";
 
 // Immediately-invoked async function to fetch and export courses
-let courses: any[] = [];
+let allCourses: any[] = [];
 
 (async () => {
   try {
@@ -14,4 +14,4 @@ let courses: any[] = [];
   }
 })();
 
-export { courses };
+export { allCourses };
