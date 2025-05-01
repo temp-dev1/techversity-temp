@@ -1,15 +1,18 @@
-// app/api/courses/route.ts
 import { connectDB } from "@/lib/db";
 import Course from "@/models/Course";
-import { NextResponse } from "next/server";
+import type { NextApiRequest, NextApiResponse } from "next";
 
-export async function GET() {
-  try {
-    await connectDB();
-    const courses = await Course.find({}).lean();
-    return NextResponse.json(courses);
-  } catch (error) {
-    console.error("API error:", error);
-    return NextResponse.json({ message: "Failed to fetch courses" }, { status: 500 });
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === "GET") {
+    try {
+      await connectDB();
+      const courses = await Course.find({}).lean();
+      res.status(200).json(courses);
+    } catch (error) {
+      console.error("API error:", error);
+      res.status(500).json({ message: "Failed to fetch courses" });
+    }
+  } else {
+    res.status(405).json({ message: "Method Not Allowed" });
   }
 }
