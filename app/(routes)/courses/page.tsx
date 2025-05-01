@@ -6,7 +6,7 @@ import { allCourses } from "@/data/courses";
 import CourseCard from "@/components/courses/CourseCard";
 import CourseFilters from "@/components/courses/CourseFilters";
 import { Button } from "@/components/ui/button";
-import React from "react";
+
 
 
 export default function CoursesPage() {
