@@ -1,78 +1,52 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 
-const partners = [
-  {
-    id: 1,
-    name: 'Startup India',
-    logo: 'https://edu-versity.in/wp-content/uploads/2023/08/logo-2.png',
-  },
-  {
-    id: 2,
-    name: 'Anavadyaa',
-    logo: 'https://edu-versity.in/wp-content/uploads/2023/08/logo-3.png',
-  },
-  {
-    id: 3,
-    name: 'Enterpreter',
-    logo: 'https://edu-versity.in/wp-content/uploads/2023/08/logo-4.png',
-  },
-  {
-    id: 4,
-    name: 'Extech Digital',
-    logo: 'https://edu-versity.in/wp-content/uploads/2023/08/logo-5.png',
-  },
-  {
-    id: 5,
-    name: 'Webclox',
-    logo: 'https://edu-versity.in/wp-content/uploads/2023/08/logo-6.png',
-  },
-  {
-    id: 6,
-    name: 'Bouncer avenue',
-    logo: 'https://edu-versity.in/wp-content/uploads/2023/08/logo-1.png',
-  },
-];
-
-// Triple the array for seamless looping
-const loopedPartners = [...partners, ...partners, ...partners];
+interface Partner {
+  id: number;
+  name: string;
+  logo: string;
+}
 
 const MarqueePartners = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const itemWidth = 264; // approx width + margin/padding per item
-  const originalLength = partners.length;
+  const itemWidth = 264;
+  const [partners, setPartners] = useState<Partner[]>([]);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      // Jump to the middle set
-      scrollRef.current.scrollLeft = itemWidth * originalLength;
-    }
+    const fetchPartners = async () => {
+      try {
+        const res = await fetch('/api/partners');
+        const data: Partner[] = await res.json();
+        setPartners([...data, ...data, ...data]); // Loop effect
+        if (scrollRef.current) {
+          scrollRef.current.scrollLeft = itemWidth * data.length;
+        }
+      } catch (error) {
+        console.error('Error fetching partners:', error);
+      }
+    };
+
+    fetchPartners();
   }, []);
 
   const handleManualScroll = (direction: 'left' | 'right') => {
     if (!scrollRef.current) return;
-
     const scrollAmount = direction === 'left' ? -itemWidth : itemWidth;
-    scrollRef.current.scrollBy({
-      left: scrollAmount,
-      behavior: 'smooth',
-    });
+    scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   };
 
   const handleScroll = () => {
-    if (!scrollRef.current) return;
-
+    if (!scrollRef.current || partners.length === 0) return;
+    const originalLength = partners.length / 3;
     const scrollLeft = scrollRef.current.scrollLeft;
     const maxScroll = itemWidth * originalLength * 2;
 
     if (scrollLeft <= 0) {
-      // Jump forward
       scrollRef.current.scrollLeft = scrollLeft + itemWidth * originalLength;
     } else if (scrollLeft >= maxScroll) {
-      // Jump backward
       scrollRef.current.scrollLeft = scrollLeft - itemWidth * originalLength;
     }
   };
@@ -92,7 +66,7 @@ const MarqueePartners = () => {
               className="flex items-center gap-16 overflow-x-auto scrollbar-hide transition-all duration-300 ease-in-out"
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
-              {loopedPartners.map((partner, index) => (
+              {partners.map((partner, index) => (
                 <div
                   key={`${partner.id}-${index}`}
                   className="flex min-w-[200px] items-center justify-center"
