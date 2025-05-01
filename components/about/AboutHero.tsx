@@ -23,7 +23,7 @@ const AboutHero = () => {
             </h1>
             
             <p className="text-white/90 mb-4 text-sm sm:text-base md:text-lg leading-relaxed">
-               provides a comprehensive platform, bridging the gap between Industry based mentors 
+              Techversity provides a comprehensive platform, bridging the gap between Industry based mentors 
               and students. We have curated a wide range of programs consisting projects, offering practical 
               knowledge and helping them in shaping their career.
             </p>
