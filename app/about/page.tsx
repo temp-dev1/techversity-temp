@@ -9,7 +9,7 @@ import AboutContact from "@/components/about/AboutContact";
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen pt-24">
+    <main className="min-h-screen pt-20">
       <AboutHero />
       <AboutStats />
       <AboutContent />
