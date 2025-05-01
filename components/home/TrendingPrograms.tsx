@@ -25,12 +25,10 @@ const TrendingPrograms = () => {
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {courses.slice(0, 6).map((course) => {
-            const daysRemaining = getDaysRemaining(course.nextBatch);
-
             return (
               <div
                 key={course.id}
-                className="overflow-hidden rounded-xl shadow-lg bg-white"
+                className="group overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-xl"
               >
                 <div className="h-56 overflow-hidden rounded-t-xl">
                   <img
@@ -41,12 +39,12 @@ const TrendingPrograms = () => {
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-[#05264E] mb-3">
+                  <h3 className="mb-3 text-xl font-bold text-[#05264E] transition-colors duration-300 group-hover:text-[#0099FF]">
                     {course.title}
                   </h3>
 
-                  <div className="flex items-center text-sm text-gray-600 mb-3">
-                    <span className="flex items-center text-[#FF5C00] mr-2">
+                  <div className="mb-3 flex items-center text-sm text-gray-600">
+                    <span className="mr-2 flex items-center text-[#FF5C00]">
                       {course.rating.toFixed(1)}
                       <Star size={16} className="ml-1 fill-[#FF5C00] text-[#FF5C00]" />
                     </span>
@@ -57,25 +55,27 @@ const TrendingPrograms = () => {
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between border-t pt-4 text-sm">
-                    <span className="font-semibold">Next Batch</span>
-                    <span className="text-gray-600">
-                      in {daysRemaining} {daysRemaining === 1 ? "day" : "days"}
-                    </span>
-                    <span className="bg-[#FFB200] text-white text-xs px-3 py-1 rounded font-semibold">
-                      {course.nextBatch}
-                    </span>
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-2">
+                      {course.features.slice(0, 3).map((feature, index) => (
+                        <span
+                          key={index}
+                          className="rounded-full bg-[#0099FF]/10 px-3 py-1 text-xs font-medium text-[#0099FF]"
+                        >
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-
-<div className="mt-4">
-  <Link
-    href="#"
-    className="inline-block w-full bg-[linear-gradient(90deg,_#C84CF5_0%,_#3AA1FF_100%)] text-white text-sm text-center py-1.5 rounded-md font-semibold"
-  >
-    Know More
-  </Link>
-</div>
-
+                  
+                  <div className="mt-4">
+                    <Link
+                      href="#"
+                      className="inline-block w-full rounded-md bg-[linear-gradient(90deg,_#C84CF5_0%,_#3AA1FF_100%)] py-1.5 text-center text-sm font-semibold text-white transition-transform duration-300 group-hover:scale-[1.02]"
+                    >
+                      Know More
+                    </Link>
+                  </div>
                 </div>
               </div>
             );
@@ -85,7 +85,7 @@ const TrendingPrograms = () => {
         <div className="mt-12 text-center">
           <Link
             href="/courses"
-            className="inline-block border border-black px-6 py-2 rounded font-semibold hover:bg-black hover:text-white transition"
+            className="inline-block rounded border border-black px-6 py-2 font-semibold transition hover:bg-black hover:text-white"
           >
             Explore All
           </Link>
