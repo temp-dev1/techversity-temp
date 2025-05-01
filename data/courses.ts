@@ -10,6 +10,7 @@ export interface Course {
   discountedPrice: number;
   nextBatch: string;
   category: string;
+  features: string[];
 }
 
 export const courses: Course[] = [
@@ -24,7 +25,8 @@ export const courses: Course[] = [
     price: 45999,
     discountedPrice: 35999,
     nextBatch: "1st May, 2025",
-    category: "Web Development"
+    category: "Web Development",
+    features: ["Live Classes", "1:1 Mentorship", "Industry Projects", "Job Assistance"]
   },
   {
     id: 2,
@@ -37,7 +39,8 @@ export const courses: Course[] = [
     price: 49999,
     discountedPrice: 39999,
     nextBatch: "10th May, 2025",
-    category: "Data Science"
+    category: "Data Science",
+    features: ["MERN Stack", "Cloud Deployment", "Real Projects", "Placement Support"]
   },
   {
     id: 3,
@@ -50,7 +53,8 @@ export const courses: Course[] = [
     price: 41999,
     discountedPrice: 31999,
     nextBatch: "15th May, 2025",
-    category: "Design"
+    category: "Design",
+    features: ["SEO & SEM", "Social Media", "Analytics", "Content Strategy"]
   },
   {
     id: 4,
@@ -63,7 +67,8 @@ export const courses: Course[] = [
     price: 44999,
     discountedPrice: 34999,
     nextBatch: "20th May, 2025",
-    category: "Mobile Development"
+    category: "Mobile Development",
+    features: ["AWS/Azure/GCP", "CI/CD", "Docker & Kubernetes", "Infrastructure as Code"]
   },
   {
     id: 5,
@@ -76,7 +81,8 @@ export const courses: Course[] = [
     price: 59999,
     discountedPrice: 49999,
     nextBatch: "25th May, 2025",
-    category: "Cloud"
+    category: "Cloud",
+    features: ["Figma Mastery", "Design Systems", "Prototyping", "UX Research"]
   },
   {
     id: 6,
@@ -89,8 +95,13 @@ export const courses: Course[] = [
     price: 42999,
     discountedPrice: 32999,
     nextBatch: "1st June, 2025",
-    category: "Security"
-  },
+    category: "Security",
+    features: ["Neural Networks", "Computer Vision", "NLP", "Reinforcement Learning"]
+  }
+];
+export const allCourses: Course[] = [
+  ...courses,
+
   {
     id: 7,
     title: "DevOps & CI/CD Tools",
@@ -102,7 +113,8 @@ export const courses: Course[] = [
     price: 45999,
     discountedPrice: 35999,
     nextBatch: "5th June, 2025",
-    category: "DevOps"
+    category: "DevOps",
+    features: ["Roadmapping", "Agile & Scrum", "User Stories", "Product Analytics"]
   },
   {
     id: 8,
@@ -115,7 +127,8 @@ export const courses: Course[] = [
     price: 47999,
     discountedPrice: 37999,
     nextBatch: "10th June, 2025",
-    category: "Mobile Development"
+    category: "Mobile Development",
+    features: ["Smart Contracts", "DeFi", "Web3", "Solidity"]
   },
   {
     id: 9,
@@ -128,7 +141,8 @@ export const courses: Course[] = [
     price: 39999,
     discountedPrice: 29999,
     nextBatch: "15th June, 2025",
-    category: "Data Science"
+    category: "Data Science",
+    features: ["Ethical Hacking", "Network Security", "Incident Response", "Security Compliance"]
   },
   {
     id: 10,
@@ -141,6 +155,7 @@ export const courses: Course[] = [
     price: 54999,
     discountedPrice: 44999,
     nextBatch: "20th June, 2025",
-    category: "AI & Machine Learning"
+    category: "AI & Machine Learning",
+    features: ["Excel Mastery", "Financial Statements", "Valuation Models", "Investment Analysis"]
   }
 ];
