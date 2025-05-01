@@ -36,11 +36,14 @@ const TrendingPrograms = () => {
         }
         const data = await response.json();
         setCourses(data); // Store the courses data
-      } catch (error) {
-        setError(error.message); // Catch and display error message
-      } finally {
-        setLoading(false); // Stop loading once data is fetched
-      }
+      }  catch (error) {
+  if (error instanceof Error) {
+    setError(error.message);
+  } else {
+    setError("An unknown error occurred.");
+  }
+}
+
     };
 
     fetchCourses();
