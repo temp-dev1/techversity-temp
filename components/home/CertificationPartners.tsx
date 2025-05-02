@@ -9,7 +9,6 @@ const CertificationPartners = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch partners
   useEffect(() => {
     const fetchPartners = async () => {
       try {
@@ -30,31 +29,30 @@ const CertificationPartners = () => {
     fetchPartners();
   }, []);
 
-  // Auto-scroll effect
   useEffect(() => {
     const scroll = scrollRef.current;
     if (!scroll) return;
 
-    let scrollSpeed = 0.5; // Lower = smoother
-    let currentPosition = 0;
     let animationFrameId: number;
+    let lastScrollLeft = scroll.scrollLeft;
 
-    const scrollStep = () => {
-      currentPosition += scrollSpeed;
-      scroll.scrollLeft = currentPosition;
+    const smoothScroll = () => {
+      if (!scroll) return;
 
-      // Reset when it reaches the end
-      if (currentPosition >= scroll.scrollWidth - scroll.clientWidth) {
-        currentPosition = 0;
+      scroll.scrollLeft += 0.5; // adjust speed here
+
+      // When reaching the end, reset scroll
+      if (scroll.scrollLeft >= scroll.scrollWidth / 2) {
+        scroll.scrollLeft = 0;
       }
 
-      animationFrameId = requestAnimationFrame(scrollStep);
+      animationFrameId = requestAnimationFrame(smoothScroll);
     };
 
-    animationFrameId = requestAnimationFrame(scrollStep);
+    animationFrameId = requestAnimationFrame(smoothScroll);
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [partners]); // Make sure to re-run when partners are loaded
+  }, [partners]);
 
   if (loading) {
     return (
@@ -88,7 +86,7 @@ const CertificationPartners = () => {
         <div className="relative overflow-hidden">
           <div
             ref={scrollRef}
-            className="flex min-w-max items-center gap-16 overflow-x-scroll whitespace-nowrap py-8 scrollbar-hide scroll-smooth"
+            className="flex w-full min-w-max items-center gap-16 overflow-x-auto whitespace-nowrap py-8 no-scrollbar"
           >
             {[...partners, ...partners].map((partner, index) => (
               <div
