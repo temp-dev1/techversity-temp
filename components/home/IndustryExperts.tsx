@@ -1,28 +1,35 @@
-'use client';
+"use client";
 
 import React, { useRef, useState, useCallback, useEffect } from "react";
 import { Linkedin, ChevronLeft, ChevronRight } from "lucide-react";
-
-interface Expert {
-  id: number;
-  name: string;
-  role: string;
-  company: string;
-  companyLogo: string;
-  image: string;
-  experience: string;
-  linkedin: string;
-}
+import { Expert } from "@/models/Expert";
 
 const IndustryExperts = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [experts, setExperts] = useState<Expert[]>([]);
+  const [loading, setLoading] = useState(true);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  useEffect(() => {
+    const fetchExperts = async () => {
+      try {
+        const response = await fetch('/api/experts');
+        const data = await response.json();
+        setExperts(data);
+      } catch (error) {
+        console.error('Error fetching experts:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExperts();
+  }, []);
 
   const checkScrollButtons = useCallback(() => {
     if (!scrollRef.current) return;
@@ -87,20 +94,6 @@ const IndustryExperts = () => {
   };
 
   useEffect(() => {
-    const fetchExperts = async () => {
-      try {
-        const res = await fetch('/api/experts'); // Fetch experts from the API
-        const data: Expert[] = await res.json();
-        setExperts(data);
-      } catch (error) {
-        console.error('Error fetching experts:', error);
-      }
-    };
-
-    fetchExperts();
-  }, []);
-
-  useEffect(() => {
     const element = scrollRef.current;
     if (!element) return;
 
@@ -115,6 +108,10 @@ const IndustryExperts = () => {
     element.addEventListener('wheel', handleWheel, { passive: false });
     return () => element.removeEventListener('wheel', handleWheel);
   }, [checkScrollButtons]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <section className="py-16">
@@ -149,7 +146,7 @@ const IndustryExperts = () => {
           >
             {experts.map((expert) => (
               <div
-                key={expert.id}
+                key={expert._id}
                 className="group relative overflow-hidden rounded-lg bg-[#06315F] transition-all duration-500 hover:-translate-y-2 hover:shadow-xl"
                 style={{ 
                   userSelect: 'none',
