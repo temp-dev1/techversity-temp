@@ -1,19 +1,39 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { testimonials } from "@/data/testimonials";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { Testimonial } from "@/models/Testimonial";
 
 const Achievers = () => {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((current) => (current + 1) % testimonials.length);
-    }, 5000);
-    
-    return () => clearInterval(interval);
+    const fetchTestimonials = async () => {
+      try {
+        const response = await fetch('/api/testimonials');
+        const data = await response.json();
+        setTestimonials(data);
+      } catch (error) {
+        console.error('Error fetching testimonials:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTestimonials();
   }, []);
+
+  useEffect(() => {
+    if (testimonials.length > 0) {
+      const interval = setInterval(() => {
+        setActiveIndex((current) => (current + 1) % testimonials.length);
+      }, 5000);
+      
+      return () => clearInterval(interval);
+    }
+  }, [testimonials.length]);
 
   const nextTestimonial = () => {
     setActiveIndex((current) => (current + 1) % testimonials.length);
@@ -24,6 +44,10 @@ const Achievers = () => {
       current === 0 ? testimonials.length - 1 : current - 1
     );
   };
+
+  if (loading || testimonials.length === 0) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <section className="bg-[#05264E] py-16">
