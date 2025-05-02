@@ -40,7 +40,7 @@ const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
         <div className="flex items-center text-sm text-gray-600">
           <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />
           <span className="ml-1">
-            {course.rating.toFixed(1)} ({course.reviews} reviews)
+            {course.rating.toFixed(1)} ({course.reviews} students)
           </span>
         </div>
 
