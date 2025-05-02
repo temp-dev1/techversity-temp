@@ -6,7 +6,7 @@ import { Book, Users, Briefcase, GraduationCap } from "lucide-react";
 const features = [
   {
     id: "edu-learn",
-    title: "Edu-Learn",
+    title: "Tech-Learn",
     icon: Book,
     description: "Learn from industry experts",
     details: [
@@ -19,7 +19,7 @@ const features = [
   },
   {
     id: "edu-mentorship",
-    title: "Edu-Mentorship",
+    title: "Tech-Mentorship",
     icon: Users,
     description: "1:1 mentorship program",
     details: [
@@ -32,7 +32,7 @@ const features = [
   },
   {
     id: "edu-skills",
-    title: "Edu-Skills",
+    title: "Tech-Skills",
     icon: GraduationCap,
     description: "Practical skill development",
     details: [
@@ -45,7 +45,7 @@ const features = [
   },
   {
     id: "edu-career",
-    title: "Edu-Career",
+    title: "Tech-Career",
     icon: Briefcase,
     description: "Career support",
     details: [
