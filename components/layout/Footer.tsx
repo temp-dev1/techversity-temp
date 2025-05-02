@@ -93,25 +93,25 @@ const Footer = () => {
 
           <div>
             <h3 className="mb-4 text-[18px] font-semibold">Contact Us</h3>
-            <address className="not-italic">
+            <div className="not-italic">
               <p className="mb-3 flex items-start text-[15px] text-gray-300">
-                <span className="mr-3 mt-1">📍</span>
-                1184, 5th Main Rd, Rajiv Gandhi Nagar, HSR Layout, Bengaluru, Karnataka 560068
+                <span className="mr-3 mt-1">📞</span>
+                +91 9340333374
               </p>
               <p className="mb-3 flex items-center text-[15px] text-gray-300">
                 <span className="mr-3">📧</span>
-                <a href="mailto:admin@techversity.in" className="transition-colors hover:text-[#2196F3]">
-                  admin@techversity.in
+                <a href="mailto:admin@tech-versity.com" className="transition-colors hover:text-[#2196F3]">
+                  admin@tech-versity.com
                 </a>
               </p>
-            </address>
+            </div>
           </div>
-        </div>
+
 
         <div className="mt-12 border-t border-[#06315F] pt-6">
           <div className="flex flex-col items-center justify-between gap-4 text-center md:flex-row">
             <p className="text-[14px] text-gray-300">
-              Copyright © 2023-24 techversity
+              Copyright © 2025-26 Techversity
             </p>
           </div>
         </div>
