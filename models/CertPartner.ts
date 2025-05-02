@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 
 const CertPartnerSchema = new mongoose.Schema({
-  _id: Number,
+  _id: String,
   name: String,
   logo: String,
 });
 
 export interface CertPartner {
 
-  _id: number;
+  _id: String;
   name: string;
   logo: string;
 }
