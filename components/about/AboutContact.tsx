@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 const AboutContact = () => {
   return (
-    <div className="bg-[#05264E] py-16">
+    <div className="bg-[#05264E] py-16" style="margin-bottom:1rem;">
       <div className="container mx-auto px-4 md:px-6 text-center">
         <h2 className="text-3xl font-bold text-white mb-6">
           Ready to Start Your Journey?
