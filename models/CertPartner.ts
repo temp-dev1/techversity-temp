@@ -7,7 +7,7 @@ const CertPartnerSchema = new mongoose.Schema({
 });
 
 export interface CertPartner {
-  _id: string;
+
   id: number;
   name: string;
   logo: string;
