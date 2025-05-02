@@ -6,32 +6,32 @@ const AboutContent = () => {
     {
       icon: <Monitor className="w-12 h-12 text-blue-400" />,
       title: "Live Classes",
-      description: "Our Industry mentors provide live interactive classes, for offering the best possible learning environment."
+      description: "Our industry mentors conduct live, interactive classes to ensure an engaging and effective learning experience."
     },
     {
       icon: <Briefcase className="w-12 h-12 text-blue-400" />,
       title: "Guaranteed Internships",
-      description: "Get guaranteed internships in collaboration with 55+ companies. These internships Industrial training as well as Industry-based projects with assignments."
+      description: "Get guaranteed internships through our collaboration with 55+ companies, featuring industrial training, real-world projects, and hands-on assignments."
     },
     {
       icon: <FileText className="w-12 h-12 text-blue-400" />,
       title: "Capstone Projects",
-      description: "Kickstart your career by learning industry skills by working on projects directly coming from partnered companies."
+      description: "Kickstart your career by gaining industry-relevant skills through real projects sourced from our partner companies."
     },
     {
       icon: <Award className="w-12 h-12 text-blue-400" />,
       title: "Certified Programs",
-      description: "Upskill with our wide range of certified programs in collaboration with established and leading companies."
+      description: "Upskill with our diverse range of certified programs, developed in collaboration with leading industry partners."
     },
     {
       icon: <Search className="w-12 h-12 text-blue-400" />,
       title: "Placement Assistance",
-      description: "Get yourself trained with our mock interviews, GDs, soft skill and interpersonal skills training getting a chance to get placed in your dream company."
+      description: "Enhance your career prospects with our mock interviews, group discussions, and soft skills training — giving you the edge to land your dream job."
     },
     {
       icon: <Lock className="w-12 h-12 text-blue-400" />,
       title: "Lifetime Access",
-      description: "Get lifetime access to our Learning Management System with just one-time enrollment."
+      description: "Enjoy lifetime access to our Learning Management System with a one-time enrollment."
     }
   ];
 
