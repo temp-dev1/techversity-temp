@@ -9,6 +9,7 @@ const CertificationPartners = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Fetch partners
   useEffect(() => {
     const fetchPartners = async () => {
       try {
@@ -29,22 +30,26 @@ const CertificationPartners = () => {
     fetchPartners();
   }, []);
 
+  // Auto-scroll effect
   useEffect(() => {
     const scroll = scrollRef.current;
     if (!scroll) return;
 
-    let animationFrame: number;
+    let animationFrameId: number;
 
-    const scrollAnimation = () => {
+    const scrollStep = () => {
       scroll.scrollLeft += 1;
+
+      // Reset when halfway for seamless scroll
       if (scroll.scrollLeft >= scroll.scrollWidth / 2) {
         scroll.scrollLeft = 0;
       }
-      animationFrame = requestAnimationFrame(scrollAnimation);
+
+      animationFrameId = requestAnimationFrame(scrollStep);
     };
 
-    animationFrame = requestAnimationFrame(scrollAnimation);
-    return () => cancelAnimationFrame(animationFrame);
+    animationFrameId = requestAnimationFrame(scrollStep);
+    return () => cancelAnimationFrame(animationFrameId);
   }, []);
 
   if (loading) {
@@ -79,7 +84,7 @@ const CertificationPartners = () => {
         <div className="relative overflow-hidden">
           <div
             ref={scrollRef}
-            className="flex min-w-max items-center gap-16 overflow-x-scroll whitespace-nowrap py-8 scrollbar-hide"
+            className="flex min-w-max items-center gap-16 overflow-x-scroll whitespace-nowrap py-8 scrollbar-hide scroll-smooth"
           >
             {[...partners, ...partners].map((partner, index) => (
               <div
@@ -95,6 +100,7 @@ const CertificationPartners = () => {
             ))}
           </div>
 
+          {/* Gradient overlays */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#f8f9fa] to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#f8f9fa] to-transparent" />
         </div>
