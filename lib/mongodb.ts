@@ -16,13 +16,19 @@ declare global {
   var mongoose: MongooseGlobal | undefined;
 }
 
-let cached = global.mongoose;
+const globalWithMongoose = global as typeof globalThis & {
+  mongoose?: MongooseGlobal;
+};
 
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+if (!globalWithMongoose.mongoose) {
+  globalWithMongoose.mongoose = { conn: null, promise: null };
 }
 
+const cached = globalWithMongoose.mongoose;
+
 async function connectDB(): Promise<typeof mongoose> {
+  if (!cached) throw new Error("Mongoose cache not initialized");
+
   if (cached.conn) {
     return cached.conn;
   }
