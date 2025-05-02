@@ -51,6 +51,8 @@
     "eslint-config-next": "13.5.1",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.446.0",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.2.3",
     "next": "13.5.1",
     "next-themes": "^0.3.0",
     "postcss": "8.4.30",
@@ -66,9 +68,6 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.2.2",
     "vaul": "^0.9.9",
-    "zod": "^3.23.8",
-    "mongoose": "^8.14.1",
-    "aws4": "^1.13.2",
-    "@aws-sdk/credential-providers": "^3.799.0"
+    "zod": "^3.23.8"
   }
 }
