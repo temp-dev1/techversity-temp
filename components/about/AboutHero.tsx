@@ -19,21 +19,15 @@ const AboutHero = () => {
           {/* Left text content - exactly 50% on desktop */}
           <div className="w-full lg:w-1/2 pr-0 lg:pr-8 mb-8 lg:mb-0">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6">
-              Invest, Imbibe and Innovate
+              Learn, Adapt, and Innovate
             </h1>
             
             <p className="text-white/90 mb-4 text-sm sm:text-base md:text-lg leading-relaxed">
-              Techversity provides a comprehensive platform, bridging the gap between Industry based mentors 
-              and students. We have curated a wide range of programs consisting projects, offering practical 
-              knowledge and helping them in shaping their career.
+              Techversity offers a comprehensive learning platform that bridges the gap between industry-experienced mentors and aspiring students. Our curated programs are project-based and focused on delivering practical, real-world knowledge to help students shape and accelerate their careers.
             </p>
             
             <p className="text-white/90 text-sm sm:text-base md:text-lg leading-relaxed">
-              We envision becoming a cost-efficient learning partner for every student and helping them in 
-              transforming their careers. We aim to provide students with flexible, virtual specialised programmes in 
-              collaboration with top-notch companies and institutions, designed to inculcate industry-required 
-              skills along with personal as well as professional grooming through engaging in different group 
-              activities.
+              We aspire to be a cost-effective learning partner for every student, empowering them to transform their futures. Through flexible, virtual, and specialized programs developed in collaboration with leading companies and institutions, we aim to equip learners with in-demand industry skills. In addition, we focus on holistic development, encouraging both personal and professional growth through interactive group activities and mentorship.
             </p>
           </div>
           
