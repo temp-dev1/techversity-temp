@@ -3,29 +3,24 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-
-interface Partner {
-  id: number;
-  name: string;
-  logo: string;
-}
+import { Partner } from '@/models/Partner';
 
 const MarqueePartners = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const itemWidth = 264;
   const [partners, setPartners] = useState<Partner[]>([]);
+  const [loading, setLoading] = useState(true);
+  const itemWidth = 264;
 
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const res = await fetch('/api/partners');
-        const data: Partner[] = await res.json();
-        setPartners([...data, ...data, ...data]); // Loop effect
-        if (scrollRef.current) {
-          scrollRef.current.scrollLeft = itemWidth * data.length;
-        }
+        const response = await fetch('/api/partners');
+        const data = await response.json();
+        setPartners(data);
       } catch (error) {
         console.error('Error fetching partners:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -34,22 +29,20 @@ const MarqueePartners = () => {
 
   const handleManualScroll = (direction: 'left' | 'right') => {
     if (!scrollRef.current) return;
+
     const scrollAmount = direction === 'left' ? -itemWidth : itemWidth;
-    scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    scrollRef.current.scrollBy({
+      left: scrollAmount,
+      behavior: 'smooth',
+    });
   };
 
-  const handleScroll = () => {
-    if (!scrollRef.current || partners.length === 0) return;
-    const originalLength = partners.length / 3;
-    const scrollLeft = scrollRef.current.scrollLeft;
-    const maxScroll = itemWidth * originalLength * 2;
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-    if (scrollLeft <= 0) {
-      scrollRef.current.scrollLeft = scrollLeft + itemWidth * originalLength;
-    } else if (scrollLeft >= maxScroll) {
-      scrollRef.current.scrollLeft = scrollLeft - itemWidth * originalLength;
-    }
-  };
+  // Triple the array for seamless looping
+  const loopedPartners = [...partners, ...partners, ...partners];
 
   return (
     <section className="py-16 bg-white">
@@ -62,13 +55,12 @@ const MarqueePartners = () => {
           <div className="relative overflow-hidden py-8">
             <div
               ref={scrollRef}
-              onScroll={handleScroll}
               className="flex items-center gap-16 overflow-x-auto scrollbar-hide transition-all duration-300 ease-in-out"
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
-              {partners.map((partner, index) => (
+              {loopedPartners.map((partner, index) => (
                 <div
-                  key={`${partner.id}-${index}`}
+                  key={`${partner._id}-${index}`}
                   className="flex min-w-[200px] items-center justify-center"
                 >
                   <div className="relative h-20 w-48">
