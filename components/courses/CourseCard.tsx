@@ -1,8 +1,5 @@
-"use client";
-
 import React from "react";
 import { Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface Course {
   _id: string;
@@ -22,12 +19,16 @@ interface Course {
 
 const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
   return (
-    <div className="group transition-all duration-300 hover:scale-[1.03] hover:shadow-xl rounded-xl overflow-hidden shadow-md bg-white">
-      <div className="relative h-[180px]">
+    <div className="group bg-white rounded-xl overflow-hidden shadow-md 
+                  transition-transform transition-shadow 
+                  duration-200 ease-out hover:scale-[1.02] hover:shadow-xl 
+                  transform-gpu hover:z-10 relative">
+      <div className="relative h-[180px] overflow-hidden">
         <img
           src={course.image}
           alt={course.title}
-          className="object-cover h-full w-full"
+          className="object-cover h-full w-full transition-transform duration-300 
+                     group-hover:scale-[1.05]"
         />
         <span className="absolute top-2 left-2 bg-[#8A3FEF] text-white text-xs px-3 py-1 rounded-full">
           {course.category}
@@ -35,7 +36,7 @@ const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
       </div>
 
       <div className="p-4 space-y-3">
-        <h2 className="text-lg font-semibold text-[#05264E]">{course.title}</h2>
+        <h2 className="text-lg font-semibold text-[#05264E] line-clamp-2">{course.title}</h2>
 
         <div className="flex items-center text-sm text-gray-600">
           <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />
@@ -58,9 +59,10 @@ const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
               ₹{course.price}
             </span>
           </div>
-          <Button className="bg-[#8A3FEF] text-white px-4 py-2 text-sm hover:bg-[#6f2dd6]">
+          <button className="bg-[#8A3FEF] text-white px-4 py-2 text-sm rounded 
+                           hover:bg-[#6f2dd6] transition-colors duration-200">
             Know More
-          </Button>
+          </button>
         </div>
       </div>
     </div>
