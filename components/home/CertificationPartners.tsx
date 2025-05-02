@@ -1,36 +1,33 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
-
-const partners = [
-  {
-    name: 'Adobe',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Adobe_Corporate_Logo.png/1200px-Adobe_Corporate_Logo.png',
-  },
-  {
-    name: 'IBM',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg',
-  },
-  {
-    name: 'Cisco',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo_blue_2016.svg',
-  },
-  {
-    name: 'Microsoft',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg',
-  },
-  {
-    name: 'Intuit',
-    logo: 'https://plugin.intuitcdn.net/identity-authn-core-ui/c8bf23fa3230058f.svg',
-  },
-  {
-    name: 'ESB',
-    logo: 'https://edu-versity.in/wp-content/uploads/2023/08/certificate-partner-5.png',
-  },
-];
+import React, { useEffect, useRef, useState } from 'react';
+import { CertPartner } from '@/models/CertPartner';
 
 const CertificationPartners = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [partners, setPartners] = useState<CertPartner[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        const response = await fetch('/api/cert-partners');
+        if (!response.ok) {
+          throw new Error('Failed to fetch certification partners');
+        }
+        const data = await response.json();
+        setPartners(data);
+      } catch (error) {
+        console.error('Error fetching certification partners:', error);
+        setError('Failed to load certification partners');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPartners();
+  }, []);
 
   useEffect(() => {
     const scroll = scrollRef.current;
@@ -48,6 +45,28 @@ const CertificationPartners = () => {
     return () => clearInterval(interval);
   }, []);
 
+  if (loading) {
+    return (
+      <section className="bg-[#f8f9fa] py-16">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex items-center justify-center">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="bg-[#f8f9fa] py-16">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center text-red-600">{error}</div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="bg-[#f8f9fa] py-16">
       <div className="container mx-auto px-4 md:px-6">
@@ -62,7 +81,7 @@ const CertificationPartners = () => {
           >
             {[...partners, ...partners].map((partner, index) => (
               <div
-                key={`${partner.name}-${index}`}
+                key={`${partner._id}-${index}`}
                 className="flex min-w-[200px] items-center justify-center"
               >
                 <img
