@@ -35,22 +35,26 @@ const CertificationPartners = () => {
     const scroll = scrollRef.current;
     if (!scroll) return;
 
+    let scrollSpeed = 0.5; // Lower = smoother
+    let currentPosition = 0;
     let animationFrameId: number;
 
     const scrollStep = () => {
-      scroll.scrollLeft += 1;
+      currentPosition += scrollSpeed;
+      scroll.scrollLeft = currentPosition;
 
-      // Reset when halfway for seamless scroll
-      if (scroll.scrollLeft >= scroll.scrollWidth / 2) {
-        scroll.scrollLeft = 0;
+      // Reset when it reaches the end
+      if (currentPosition >= scroll.scrollWidth - scroll.clientWidth) {
+        currentPosition = 0;
       }
 
       animationFrameId = requestAnimationFrame(scrollStep);
     };
 
     animationFrameId = requestAnimationFrame(scrollStep);
+
     return () => cancelAnimationFrame(animationFrameId);
-  }, []);
+  }, [partners]); // Make sure to re-run when partners are loaded
 
   if (loading) {
     return (
@@ -100,7 +104,6 @@ const CertificationPartners = () => {
             ))}
           </div>
 
-          {/* Gradient overlays */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#f8f9fa] to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#f8f9fa] to-transparent" />
         </div>
