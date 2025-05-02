@@ -81,7 +81,7 @@ const CertificationPartners = () => {
           >
             {[...partners, ...partners].map((partner, index) => (
               <div
-                key={`${partner.name}-${index}`} // Updated to use partner.name as the key
+                key={`${partner._id}-${index}`} 
                 className="flex min-w-[200px] items-center justify-center"
               >
                 <img
