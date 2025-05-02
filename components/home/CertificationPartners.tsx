@@ -33,16 +33,18 @@ const CertificationPartners = () => {
     const scroll = scrollRef.current;
     if (!scroll) return;
 
+    let animationFrame: number;
+
     const scrollAnimation = () => {
+      scroll.scrollLeft += 1;
       if (scroll.scrollLeft >= scroll.scrollWidth / 2) {
         scroll.scrollLeft = 0;
-      } else {
-        scroll.scrollLeft += 1;
       }
+      animationFrame = requestAnimationFrame(scrollAnimation);
     };
 
-    const interval = setInterval(scrollAnimation, 30);
-    return () => clearInterval(interval);
+    animationFrame = requestAnimationFrame(scrollAnimation);
+    return () => cancelAnimationFrame(animationFrame);
   }, []);
 
   if (loading) {
@@ -77,11 +79,11 @@ const CertificationPartners = () => {
         <div className="relative overflow-hidden">
           <div
             ref={scrollRef}
-            className="flex w-full items-center gap-16 overflow-x-auto whitespace-nowrap py-8 scrollbar-hide"
+            className="flex min-w-max items-center gap-16 overflow-x-scroll whitespace-nowrap py-8 scrollbar-hide"
           >
             {[...partners, ...partners].map((partner, index) => (
               <div
-                key={`${partner._id}-${index}`} 
+                key={`${partner._id}-${index}`}
                 className="flex min-w-[200px] items-center justify-center"
               >
                 <img
