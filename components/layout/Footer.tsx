@@ -24,16 +24,28 @@ const Footer = () => {
               Learn over 25+ skills from industry professionals and get ready for your dream career.
             </p>
             <div className="flex space-x-4">
-              <Link href="#" className="rounded-full bg-[#06315F] p-2.5 text-gray-300 transition-colors hover:bg-[#2196F3] hover:text-white">
+              <Link
+                href="#"
+                className="rounded-full bg-[#06315F] p-2.5 text-gray-300 transition-colors hover:bg-[#2196F3] hover:text-white"
+              >
                 <Facebook size={18} />
               </Link>
-              <Link href="#" className="rounded-full bg-[#06315F] p-2.5 text-gray-300 transition-colors hover:bg-[#2196F3] hover:text-white">
+              <Link
+                href="#"
+                className="rounded-full bg-[#06315F] p-2.5 text-gray-300 transition-colors hover:bg-[#2196F3] hover:text-white"
+              >
                 <Twitter size={18} />
               </Link>
-              <Link href="#" className="rounded-full bg-[#06315F] p-2.5 text-gray-300 transition-colors hover:bg-[#2196F3] hover:text-white">
+              <Link
+                href="#"
+                className="rounded-full bg-[#06315F] p-2.5 text-gray-300 transition-colors hover:bg-[#2196F3] hover:text-white"
+              >
                 <Instagram size={18} />
               </Link>
-              <Link href="#" className="rounded-full bg-[#06315F] p-2.5 text-gray-300 transition-colors hover:bg-[#2196F3] hover:text-white">
+              <Link
+                href="#"
+                className="rounded-full bg-[#06315F] p-2.5 text-gray-300 transition-colors hover:bg-[#2196F3] hover:text-white"
+              >
                 <Linkedin size={18} />
               </Link>
             </div>
@@ -43,27 +55,42 @@ const Footer = () => {
             <h3 className="mb-4 text-[18px] font-semibold">Quick Links</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/" className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]">
+                <Link
+                  href="/"
+                  className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]"
+                >
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/courses" className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]">
+                <Link
+                  href="/courses"
+                  className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]"
+                >
                   Courses
                 </Link>
               </li>
               <li>
-                <Link href="#about" className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]">
+                <Link
+                  href="#about"
+                  className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]"
+                >
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]">
+                <Link
+                  href="#"
+                  className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]"
+                >
                   Blog
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]">
+                <Link
+                  href="#contact"
+                  className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]"
+                >
                   Contact
                 </Link>
               </li>
@@ -74,17 +101,26 @@ const Footer = () => {
             <h3 className="mb-4 text-[18px] font-semibold">More</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="#" className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]">
+                <Link
+                  href="#"
+                  className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]"
+                >
                   FAQs
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]">
+                <Link
+                  href="#"
+                  className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]"
+                >
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]">
+                <Link
+                  href="#"
+                  className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]"
+                >
                   Terms and Conditions
                 </Link>
               </li>
@@ -100,19 +136,22 @@ const Footer = () => {
               </p>
               <p className="mb-3 flex items-center text-[15px] text-gray-300">
                 <span className="mr-3">📧</span>
-                <a href="mailto:admin@tech-versity.com" className="transition-colors hover:text-[#2196F3]">
+                <a
+                  href="mailto:admin@tech-versity.com"
+                  className="transition-colors hover:text-[#2196F3]"
+                >
                   admin@tech-versity.com
                 </a>
               </p>
             </div>
           </div>
 
-
-        <div className="mt-12 border-t border-[#06315F] pt-6">
-          <div className="flex flex-col items-center justify-between gap-4 text-center md:flex-row">
-            <p className="text-[14px] text-gray-300">
-              Copyright © 2025-26 Techversity
-            </p>
+          <div className="mt-12 border-t border-[#06315F] pt-6">
+            <div className="flex flex-col items-center justify-between gap-4 text-center md:flex-row">
+              <p className="text-[14px] text-gray-300">
+                Copyright © 2025-26 Techversity
+              </p>
+            </div>
           </div>
         </div>
       </div>
