@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, useRef, useState } from 'react';
 import { CertPartner } from '@/models/CertPartner';
 
@@ -25,33 +24,23 @@ const CertificationPartners = () => {
         setLoading(false);
       }
     };
-
     fetchPartners();
   }, []);
 
   useEffect(() => {
     const scroll = scrollRef.current;
-    if (!scroll) return;
+    if (!scroll || partners.length === 0) return;
 
-    let animationFrameId: number;
-    let lastScrollLeft = scroll.scrollLeft;
-
-    const smoothScroll = () => {
-      if (!scroll) return;
-
-      scroll.scrollLeft += 0.5; // adjust speed here
-
-      // When reaching the end, reset scroll
+    const scrollAnimation = () => {
       if (scroll.scrollLeft >= scroll.scrollWidth / 2) {
         scroll.scrollLeft = 0;
+      } else {
+        scroll.scrollLeft += 1;
       }
-
-      animationFrameId = requestAnimationFrame(smoothScroll);
     };
 
-    animationFrameId = requestAnimationFrame(smoothScroll);
-
-    return () => cancelAnimationFrame(animationFrameId);
+    const interval = setInterval(scrollAnimation, 30);
+    return () => clearInterval(interval);
   }, [partners]);
 
   if (loading) {
@@ -82,7 +71,6 @@ const CertificationPartners = () => {
         <h2 className="mb-12 text-center text-3xl font-bold text-[#1a1a1a] md:text-4xl">
           Our Certifications Partners
         </h2>
-
         <div className="relative overflow-hidden">
           <div
             ref={scrollRef}
@@ -101,7 +89,6 @@ const CertificationPartners = () => {
               </div>
             ))}
           </div>
-
           <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#f8f9fa] to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#f8f9fa] to-transparent" />
         </div>
