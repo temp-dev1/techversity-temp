@@ -18,9 +18,6 @@ const HeroSection = () => {
                 alt="Wipro"
                 className="h-8 w-auto sm:h-10 md:h-12"
               />
-              <p className="ml-2 sm:ml-3 md:ml-4 text-base sm:text-lg font-medium text-[#1a1a1a]">
-                Credential Platform Partner
-              </p>
             </div>
 
             <h1 className="mb-4 sm:mb-5 md:mb-6 font-bold text-[#1a1a1a] text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight max-w-full">
