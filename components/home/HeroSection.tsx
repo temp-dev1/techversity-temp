@@ -16,7 +16,7 @@ const HeroSection = () => {
               <img
                 src="/trusted.png"
                 alt="Wipro"
-                className="h-8 w-auto sm:h-10 md:h-12"
+                className="h-10 w-auto sm:h-14 md:h-16 lg:h-20"
               />
             </div>
 
