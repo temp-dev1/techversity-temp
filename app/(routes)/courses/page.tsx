@@ -5,34 +5,15 @@ import { Book, GraduationCap, Tag, Clock } from "lucide-react";
 import CourseCard from "@/components/courses/CourseCard";
 import CourseFilters from "@/components/courses/CourseFilters";
 import { Button } from "@/components/ui/button";
-
-// Import Course type
-export interface Course {
-  _id: string; // Assuming this is from MongoDB
-  id: number;
-  title: string;
-  image: string;
-  rating: number;
-  reviews: number;
-  duration: string;
-  level: string;
-  price: number;
-  discountedPrice: number;
-  nextBatch: string;
-  category: string;
-  features: string[];
-}
+import { Course } from "@/models/Course";
 
 export default function CoursesPage() {
-  const [allCourses, setAllCourses] = useState<Course[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeFilters, setActiveFilters] = useState<{
-    categories: string[];
-    duration: string[];
-    level: string[];
-    priceRange: [number, number] | null;
-  }>({
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [activeFilters, setActiveFilters] = useState<any>({
     categories: [],
     duration: [],
     level: [],
@@ -42,12 +23,18 @@ export default function CoursesPage() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await fetch("/api/courses");
-        const data: Course[] = await res.json();
-        setAllCourses(data);
+        const response = await fetch('/api/courses');
+        if (!response.ok) {
+          throw new Error('Failed to fetch courses');
+        }
+        const data = await response.json();
+        setCourses(data);
         setFilteredCourses(data);
-      } catch (err) {
-        console.error("Failed to fetch courses", err);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+        setError('Failed to load courses');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -55,8 +42,11 @@ export default function CoursesPage() {
   }, []);
 
   useEffect(() => {
-    let results = [...allCourses];
+    if (!courses.length) return;
 
+    let results = [...courses];
+
+    // Apply search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       results = results.filter(
@@ -66,19 +56,15 @@ export default function CoursesPage() {
       );
     }
 
-    if (
-      activeFilters.categories.length > 0 &&
-      !activeFilters.categories.includes("All Categories")
-    ) {
+    // Apply category filters
+    if (activeFilters.categories.length > 0 && !activeFilters.categories.includes("All Categories")) {
       results = results.filter((course) =>
         activeFilters.categories.includes(course.category)
       );
     }
 
-    if (
-      activeFilters.duration.length > 0 &&
-      !activeFilters.duration.includes("All Durations")
-    ) {
+    // Apply duration filters
+    if (activeFilters.duration.length > 0 && !activeFilters.duration.includes("All Durations")) {
       results = results.filter((course) => {
         const durationMonths = parseInt(course.duration);
         return activeFilters.duration.some((filter: string) => {
@@ -90,39 +76,53 @@ export default function CoursesPage() {
       });
     }
 
-    if (
-      activeFilters.level.length > 0 &&
-      !activeFilters.level.includes("All Levels")
-    ) {
+    // Apply level filters
+    if (activeFilters.level.length > 0 && !activeFilters.level.includes("All Levels")) {
       results = results.filter((course) =>
-        activeFilters.level.includes(course.level)
+        activeFilters.level.some((filter: string) =>
+          course.level.includes(filter)
+        )
       );
     }
 
+    // Apply price range filter
     if (activeFilters.priceRange) {
       const [min, max] = activeFilters.priceRange;
       results = results.filter(
-        (course) =>
-          course.discountedPrice >= min && course.discountedPrice <= max
+        (course) => course.discountedPrice >= min && course.discountedPrice <= max
       );
     }
 
     setFilteredCourses(results);
-  }, [searchQuery, activeFilters, allCourses]);
+  }, [searchQuery, activeFilters, courses]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
   };
 
-  const handleFilterChange = (filters: typeof activeFilters) => {
+  const handleFilterChange = (filters: any) => {
     setActiveFilters(filters);
   };
 
-  const CourseCardWithScaling: React.FC<{ course: Course }> = ({ course }) => (
-    <div className="group transition-all duration-300 hover:scale-[1.03] hover:shadow-xl">
-      <CourseCard course={course} />
-    </div>
-  );
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 pt-24">
+        <div className="flex items-center justify-center py-12">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 pt-24">
+        <div className="container mx-auto px-4 py-12 text-center text-red-600 md:px-6">
+          {error}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 pt-24">
@@ -142,7 +142,7 @@ export default function CoursesPage() {
               <Book className="mr-3 h-5 w-5 text-[#0099FF]" />
               <div>
                 <p className="text-sm text-gray-300">Total Courses</p>
-                <p className="font-bold text-white">{allCourses.length}+</p>
+                <p className="font-bold text-white">{courses.length}+</p>
               </div>
             </div>
             <div className="flex items-center rounded-lg bg-[#06315F] px-4 py-3">
@@ -176,7 +176,7 @@ export default function CoursesPage() {
         {filteredCourses.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredCourses.map((course) => (
-              <CourseCardWithScaling key={course._id} course={course} />
+              <CourseCard key={course._id} course={course} />
             ))}
           </div>
         ) : (
