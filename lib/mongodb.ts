@@ -1,54 +1,26 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/tech1-zeta";
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/techversity';
 
 if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable inside .env");
+  throw new Error('Please define the MONGODB_URI environment variable inside .env');
 }
 
-interface MongooseGlobal {
-  conn: typeof mongoose | null;
-  promise: Promise<typeof mongoose> | null;
-}
+let isConnected = false;
 
-// Add custom type to globalThis
-declare global {
-  var mongoose: MongooseGlobal | undefined;
-}
-
-const globalWithMongoose = global as typeof globalThis & {
-  mongoose?: MongooseGlobal;
-};
-
-if (!globalWithMongoose.mongoose) {
-  globalWithMongoose.mongoose = { conn: null, promise: null };
-}
-
-const cached = globalWithMongoose.mongoose;
-
-async function connectDB(): Promise<typeof mongoose> {
-  if (!cached) throw new Error("Mongoose cache not initialized");
-
-  if (cached.conn) {
-    return cached.conn;
-  }
-
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
-    };
-
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => mongoose);
+async function connectDB() {
+  if (isConnected) {
+    return;
   }
 
   try {
-    cached.conn = await cached.promise;
-  } catch (e) {
-    cached.promise = null;
-    throw e;
+    await mongoose.connect(MONGODB_URI);
+    isConnected = true;
+    console.log('MongoDB connected successfully');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    throw error;
   }
-
-  return cached.conn;
 }
 
 export default connectDB;
