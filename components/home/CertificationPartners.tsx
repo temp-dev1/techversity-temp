@@ -14,7 +14,7 @@ const CertificationPartners = () => {
 
     let animationFrameId: number;
     let lastTime = 0;
-    const speed = 0.5; // Pixels per millisecond
+    const speed = 5; // Pixels per millisecond
 
     const animate = (currentTime: number) => {
       if (lastTime === 0) {
