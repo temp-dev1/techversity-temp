@@ -54,7 +54,7 @@ const CourseDetailsPopup: React.FC<CourseDetailsPopupProps> = ({ course, onClose
           onClick={onClose}
           className="absolute right-4 top-4 rounded-full bg-white p-2 text-gray-500 hover:bg-gray-100"
         >
-          <X className="h-6 w-6" />
+          <XIcon className="h-6 w-6" />
         </button>
 
         <div className="grid md:grid-cols-3">
