@@ -75,16 +75,18 @@ const ContactForm: React.FC<ContactFormProps> = ({ isOpen, onClose }) => {
         className="relative w-full max-w-3xl rounded-3xl bg-white p-8 shadow-2xl md:p-10"
       >
         {/* Modern Close Button (partially outside) */}
-        <button
-          onClick={onClose}
-          className="absolute -right-4 -top-4 z-10 h-10 w-10 rounded-full bg-white shadow-md hover:bg-gray-100"
-          style={{
-            transform: "translate(25%, -25%)", // 75% outside, 25% inside
-          }}
-          aria-label="Close contact form"
-        >
-          <X className="h-5 w-5 text-gray-600" />
-        </button>
+<button
+  onClick={onClose}
+  className="absolute z-10 h-10 w-10 rounded-full bg-white shadow-lg hover:bg-gray-100 flex items-center justify-center"
+  style={{
+    top: '-20px',
+    right: '-20px',
+  }}
+  aria-label="Close contact form"
+>
+  <X className="h-5 w-5 text-gray-600" />
+</button>
+
 
         {/* Header */}
         <div className="mb-8 text-center">
@@ -167,8 +169,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ isOpen, onClose }) => {
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             You can also reach us at{" "}
-            <a href="tel:+91340333374" className="font-semibold text-[#0099FF]">
-              +91 98765 43210
+            <a href="tel:+919340333374" className="font-semibold text-[#0099FF]">
+              +91 93403 33374
             </a>
           </p>
         </div>
