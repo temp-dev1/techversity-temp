@@ -28,13 +28,13 @@ const CertificationPartners = () => {
   }, []);
 
   useEffect(() => {
-    const scroll = scrollRef.current;
-    if (!scroll || partners.length === 0) return;
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer || partners.length === 0) return;
 
     let isUserScrolling = false;
     let timeout: NodeJS.Timeout;
 
-    const handleScroll = () => {
+    const handleUserScroll = () => {
       isUserScrolling = true;
       clearTimeout(timeout);
       timeout = setTimeout(() => {
@@ -42,22 +42,25 @@ const CertificationPartners = () => {
       }, 1000);
     };
 
-    scroll.addEventListener('scroll', handleScroll);
+    scrollContainer.addEventListener('scroll', handleUserScroll);
 
-    const scrollAnimation = () => {
+    const autoScroll = () => {
       if (!isUserScrolling) {
-        if (scroll.scrollLeft >= scroll.scrollWidth / 2) {
-          scroll.scrollLeft = scroll.scrollLeft - scroll.scrollWidth / 2;
+        if (
+          scrollContainer.scrollLeft >=
+          scrollContainer.scrollWidth / 2
+        ) {
+          scrollContainer.scrollLeft = 0;
         } else {
-          scroll.scrollLeft += 1;
+          scrollContainer.scrollLeft += 1;
         }
       }
     };
 
-    const interval = setInterval(scrollAnimation, 30);
+    const interval = setInterval(autoScroll, 30);
 
     return () => {
-      scroll.removeEventListener('scroll', handleScroll);
+      scrollContainer.removeEventListener('scroll', handleUserScroll);
       clearInterval(interval);
     };
   }, [partners]);
@@ -93,21 +96,25 @@ const CertificationPartners = () => {
         <div className="relative overflow-hidden">
           <div
             ref={scrollRef}
-            className="no-scrollbar flex w-full min-w-max items-center gap-16 overflow-x-auto whitespace-nowrap py-8"
+            className="overflow-x-auto whitespace-nowrap no-scrollbar"
           >
-            {[...partners, ...partners].map((partner, index) => (
-              <div
-                key={`${partner._id}-${index}`}
-                className="flex min-w-[200px] items-center justify-center"
-              >
-                <img
-                  src={partner.logo}
-                  alt={partner.name}
-                  className="h-12 w-auto object-contain grayscale transition-all hover:grayscale-0"
-                />
-              </div>
-            ))}
+            <div className="flex min-w-max items-center gap-16 py-8">
+              {[...partners, ...partners].map((partner, index) => (
+                <div
+                  key={`${partner._id}-${index}`}
+                  className="min-w-[200px] flex items-center justify-center"
+                >
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className="h-12 w-auto object-contain grayscale transition-all hover:grayscale-0"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
+
+          {/* Gradient overlays */}
           <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#f8f9fa] to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#f8f9fa] to-transparent" />
         </div>
