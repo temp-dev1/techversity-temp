@@ -406,7 +406,7 @@ const CourseDetailsPopup: React.FC<CourseDetailsPopupProps> = ({ course, onClose
                   href="tel:+919876543210"
                   className="text-xl font-bold text-[#0099FF]"
                 >
-                  +91 98765 43210
+                  +91 93403 33374
                 </a>
               </div>
             </div>
