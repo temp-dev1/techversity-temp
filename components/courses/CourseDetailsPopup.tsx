@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, Star, Check } from 'lucide-react';
+import { X as XIcon, Star, Check } from 'lucide-react';
 import { Course } from "@/models/Course";
 import { Button } from "@/components/ui/button";
 
