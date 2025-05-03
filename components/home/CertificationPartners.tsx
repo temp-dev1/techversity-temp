@@ -28,45 +28,21 @@ const CertificationPartners = () => {
   }, []);
 
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer || partners.length === 0) return;
+    const scroll = scrollRef.current;
+    if (!scroll || partners.length === 0) return;
 
-    let isUserScrolling = false;
-    let scrollSpeed = 1000;
-    let animationFrameId: number;
-    let timeout: NodeJS.Timeout;
-
-
-    const handleUserScroll = () => {
-      isUserScrolling = true;
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        isUserScrolling = false;
-      }, 1000);
-    };
-
-    const smoothScroll = () => {
-      if (!isUserScrolling && scrollContainer) {
-        scrollContainer.scrollLeft += scrollSpeed;
-
-        // Reset when halfway through duplicated list
-        if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
-          scrollContainer.scrollLeft = 0;
-        }
+    const scrollAnimation = () => {
+      if (scroll.scrollLeft >= scroll.scrollWidth / 2) {
+        scroll.scrollLeft = 0;
+      } else {
+        scroll.scrollLeft += 1;
       }
-
-      animationFrameId = requestAnimationFrame(smoothScroll);
     };
 
-    scrollContainer.addEventListener('scroll', handleUserScroll);
-    animationFrameId = requestAnimationFrame(smoothScroll);
-
-    return () => {
-      scrollContainer.removeEventListener('scroll', handleUserScroll);
-      cancelAnimationFrame(animationFrameId);
-
-    };
+    const interval = setInterval(scrollAnimation, 30);
+    return () => clearInterval(interval);
   }, [partners]);
+
   if (loading) {
     return (
       <section className="bg-[#f8f9fa] py-16">
