@@ -31,9 +31,6 @@ const NeedHelp = () => {
                 src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt="Support Representative"
                 className="h-[400px] w-full rounded-2xl object-cover object-center md:w-[500px]"
-                style={{
-                  clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
-                }}
               />
             </div>
           </div>
