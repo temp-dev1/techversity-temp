@@ -31,16 +31,35 @@ const CertificationPartners = () => {
     const scroll = scrollRef.current;
     if (!scroll || partners.length === 0) return;
 
+    let isUserScrolling = false;
+    let timeout: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      isUserScrolling = true;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        isUserScrolling = false;
+      }, 1000);
+    };
+
+    scroll.addEventListener('scroll', handleScroll);
+
     const scrollAnimation = () => {
-      if (scroll.scrollLeft >= scroll.scrollWidth / 2) {
-        scroll.scrollLeft = 0;
-      } else {
-        scroll.scrollLeft += 1;
+      if (!isUserScrolling) {
+        if (scroll.scrollLeft >= scroll.scrollWidth / 2) {
+          scroll.scrollLeft = scroll.scrollLeft - scroll.scrollWidth / 2;
+        } else {
+          scroll.scrollLeft += 1;
+        }
       }
     };
 
     const interval = setInterval(scrollAnimation, 30);
-    return () => clearInterval(interval);
+
+    return () => {
+      scroll.removeEventListener('scroll', handleScroll);
+      clearInterval(interval);
+    };
   }, [partners]);
 
   if (loading) {
@@ -74,7 +93,7 @@ const CertificationPartners = () => {
         <div className="relative overflow-hidden">
           <div
             ref={scrollRef}
-            className="flex w-full min-w-max items-center gap-16 overflow-x-auto whitespace-nowrap py-8 no-scrollbar"
+            className="no-scrollbar flex w-full min-w-max items-center gap-16 overflow-x-auto whitespace-nowrap py-8"
           >
             {[...partners, ...partners].map((partner, index) => (
               <div
