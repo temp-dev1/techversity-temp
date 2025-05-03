@@ -142,3 +142,11 @@
 .btn-gradient {
   @apply bg-gradient-to-r from-[#2196F3] via-[#4E6BE7] to-[#8A3FEF] text-white hover:opacity-90;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
