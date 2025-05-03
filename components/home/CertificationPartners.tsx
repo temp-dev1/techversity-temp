@@ -9,39 +9,64 @@ const CertificationPartners = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        const response = await fetch('/api/cert-partners');
+        if (!response.ok) {
+          throw new Error('Failed to fetch certification partners');
+        }
+        const data = await response.json();
+        setPartners(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Error fetching certification partners:', error);
+        setError('Failed to load certification partners');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPartners();
+  }, []);
+
+  useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer || partners.length === 0) return;
 
+    let isUserScrolling = false;
+    let scrollSpeed = 1000;
     let animationFrameId: number;
-    let lastTime = 0;
-    const speed = 5; // Pixels per millisecond
+    let timeout: NodeJS.Timeout;
 
-    const animate = (currentTime: number) => {
-      if (lastTime === 0) {
-        lastTime = currentTime;
-      }
 
-      const deltaTime = currentTime - lastTime;
-      lastTime = currentTime;
-
-      if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
-        scrollContainer.scrollLeft = 0;
-      } else {
-        scrollContainer.scrollLeft += deltaTime * speed;
-      }
-
-      animationFrameId = requestAnimationFrame(animate);
+    const handleUserScroll = () => {
+      isUserScrolling = true;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        isUserScrolling = false;
+      }, 1000);
     };
 
-    animationFrameId = requestAnimationFrame(animate);
+    const smoothScroll = () => {
+      if (!isUserScrolling && scrollContainer) {
+        scrollContainer.scrollLeft += scrollSpeed;
+
+        // Reset when halfway through duplicated list
+        if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
+          scrollContainer.scrollLeft = 0;
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(smoothScroll);
+    };
+
+    scrollContainer.addEventListener('scroll', handleUserScroll);
+    animationFrameId = requestAnimationFrame(smoothScroll);
 
     return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
+      scrollContainer.removeEventListener('scroll', handleUserScroll);
+      cancelAnimationFrame(animationFrameId);
+
     };
   }, [partners]);
-
   if (loading) {
     return (
       <section className="bg-[#f8f9fa] py-16">
