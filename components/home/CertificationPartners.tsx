@@ -32,7 +32,7 @@ const CertificationPartners = () => {
     if (!scrollContainer || partners.length === 0) return;
 
     let isUserScrolling = false;
-    let scrollSpeed = 300;
+    let scrollSpeed = 500;
     let animationFrameId: number;
     let timeout: NodeJS.Timeout;
 
