@@ -16,7 +16,7 @@ const CertificationPartners = () => {
           throw new Error('Failed to fetch certification partners');
         }
         const data = await response.json();
-        setPartners(data);
+        setPartners(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Error fetching certification partners:', error);
         setError('Failed to load certification partners');
