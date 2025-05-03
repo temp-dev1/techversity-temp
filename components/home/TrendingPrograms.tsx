@@ -2,34 +2,24 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { Star, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Star } from "lucide-react";
 import { Course } from "@/models/Course";
-
-const SkeletonCard = () => (
-  <div className="animate-pulse rounded-xl bg-gray-100 p-6 shadow">
-    <div className="mb-4 h-40 w-full rounded bg-gray-300"></div>
-    <div className="mb-2 h-6 w-3/4 rounded bg-gray-300"></div>
-    <div className="mb-2 h-4 w-1/2 rounded bg-gray-300"></div>
-    <div className="mb-2 h-4 w-1/3 rounded bg-gray-300"></div>
-    <div className="mt-4 h-8 w-full rounded bg-gray-300"></div>
-  </div>
-);
+import CourseDetailsPopup from "@/components/courses/CourseDetailsPopup"; // Import the popup component
 
 const TrendingPrograms = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
 
   useEffect(() => {
     const fetchCourses = async () => {
       try {
         const response = await fetch("/api/courses");
-        if (!response.ok) throw new Error("Failed to fetch courses");
         const data = await response.json();
-        setCourses(data.slice(0, 6));
+        setCourses(data);
       } catch (error) {
         console.error("Error fetching courses:", error);
-        setError("Failed to load courses");
       } finally {
         setLoading(false);
       }
@@ -38,87 +28,122 @@ const TrendingPrograms = () => {
     fetchCourses();
   }, []);
 
-  if (error) return <div className="text-center py-10 text-red-600">Error: {error}</div>;
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <section className="bg-white py-16">
+    <section className="bg-gray-50 py-16">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mb-12 text-center">
           <h2 className="mb-2 text-3xl font-bold text-[#05264E] md:text-4xl">
             Trending Specialization Programs
           </h2>
+          <p className="mx-auto max-w-2xl text-gray-600">
+            Explore our most popular courses designed to equip you with in-demand skills for today's job market.
+          </p>
         </div>
 
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {loading
-            ? Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)
-            : courses.map((course) => (
-                <div
-                  key={course.id}
-                  className="group overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-xl"
-                >
-                  <div className="h-56 overflow-hidden rounded-t-xl">
-                    <img
-                      src={course.image}
-                      alt={course.title}
-                      className="h-full w-full object-cover"
-                    />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {courses.map((course) => (
+            <div
+              key={course._id}
+              className="group relative overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            >
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={course.image}
+                  alt={course.title}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute left-0 top-0 rounded-br-lg bg-[#FF5C00] px-3 py-1 text-sm font-semibold text-white">
+                  {course.category}
+                </div>
+              </div>
+
+              <div className="p-6">
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-500">{course.duration}</span>
+                  <span className="text-sm font-medium text-gray-500">{course.level}</span>
+                </div>
+
+                <h3 className="mb-3 text-xl font-bold text-[#05264E] transition-colors group-hover:text-[#0099FF]">
+                  {course.title}
+                </h3>
+
+                <div className="mb-3 flex items-center">
+                  <div className="flex items-center">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        size={16}
+                        className={`${
+                          i < Math.floor(course.rating)
+                            ? "fill-[#FF5C00] text-[#FF5C00]"
+                            : "text-gray-300"
+                        }`}
+                      />
+                    ))}
                   </div>
+                  <span className="ml-2 text-sm text-gray-600">({course.reviews} reviews)</span>
+                </div>
 
-                  <div className="p-6">
-                    <h3 className="mb-3 text-xl font-bold text-[#05264E] transition-colors duration-300 group-hover:text-[#0099FF]">
-                      {course.title}
-                    </h3>
-
-                    <div className="mb-3 flex items-center text-sm text-gray-600">
-                      <span className="mr-2 flex items-center text-[#FF5C00]">
-                        {course.rating.toFixed(1)}
-                        <Star size={16} className="ml-1 fill-[#FF5C00] text-[#FF5C00]" />
-                      </span>
-                      <span className="mx-2">|</span>
-                      <span className="flex items-center">
-                        <Users size={16} className="mr-1" />
-                        {course.reviews.toLocaleString()} Students
-                      </span>
-                    </div>
-
-                    <div className="mb-4">
-                      <div className="flex flex-wrap gap-2">
-                        {course.features.slice(0, 3).map((feature, index) => (
-                          <span
-                            key={index}
-                            className="rounded-full bg-[#0099FF]/10 px-3 py-1 text-xs font-medium text-[#0099FF]"
-                          >
-                            {feature}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mt-4">
-                      <Link
-                        href="#"
-                        className="inline-block w-full rounded-md bg-[linear-gradient(90deg,_#C84CF5_0%,_#3AA1FF_100%)] py-1.5 text-center text-sm font-semibold text-white transition-transform duration-300 group-hover:scale-[1.02]"
+                <div className="mb-4">
+                  <div className="flex flex-wrap gap-2">
+                    {course.features.slice(0, 3).map((feature, index) => (
+                      <span
+                        key={index}
+                        className="rounded-full bg-[#0099FF]/10 px-3 py-1 text-xs font-medium text-[#0099FF]"
                       >
-                        Know More
-                      </Link>
-                    </div>
+                        {feature}
+                      </span>
+                    ))}
                   </div>
                 </div>
-              ))}
+
+                <div className="mb-4 flex items-center justify-between">
+                  <div>
+                    <span className="mr-2 text-lg font-bold text-[#05264E]">
+                      ₹{course.discountedPrice.toLocaleString()}
+                    </span>
+                    <span className="text-sm text-gray-500 line-through">
+                      ₹{course.price.toLocaleString()}
+                    </span>
+                  </div>
+                  <span className="rounded-full bg-[#FF5C00]/10 px-3 py-1 text-sm font-medium text-[#FF5C00]">
+                    {Math.round(((course.price - course.discountedPrice) / course.price) * 100)}% OFF
+                  </span>
+                </div>
+
+                <Button
+                  variant="blue"
+                  className="w-full"
+                  onClick={() => setSelectedCourse(course)} // Open the popup with the selected course
+                >
+                  Know More
+                </Button>
+              </div>
+            </div>
+          ))}
         </div>
 
-        {!loading && (
-          <div className="mt-12 text-center">
-            <Link
-              href="/courses"
-              className="inline-block rounded border border-black px-6 py-2 font-semibold transition hover:bg-black hover:text-white"
-            >
-              Explore All
+        <div className="mt-12 text-center">
+          <Button variant="outline" size="lg" asChild>
+            <Link href="/courses" className="group inline-flex items-center">
+              View All Courses
+              <ArrowRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />
             </Link>
-          </div>
-        )}
+          </Button>
+        </div>
       </div>
+
+      {/* Conditionally render the popup if selectedCourse is set */}
+      {selectedCourse && (
+        <CourseDetailsPopup
+          course={selectedCourse} // Pass the selected course to the popup component
+          onClose={() => setSelectedCourse(null)} // Close the popup when it is clicked away or closed
+        />
+      )}
     </section>
   );
 };
