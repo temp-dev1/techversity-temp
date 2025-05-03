@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star } from "lucide-react";
 import { Course } from "@/models/Course";
-import CourseDetailsPopup from "@/components/courses/CourseDetailsPopup"; // Import the popup component
+import CourseDetailsPopup from "@/components/courses/CourseDetailsPopup";
 
 const TrendingPrograms = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -28,9 +28,7 @@ const TrendingPrograms = () => {
     fetchCourses();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <div className="text-center py-20">Loading...</div>;
 
   return (
     <section className="bg-gray-50 py-16">
@@ -48,31 +46,31 @@ const TrendingPrograms = () => {
           {courses.map((course) => (
             <div
               key={course._id}
-              className="group relative overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="group relative overflow-hidden rounded-xl bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-48 w-full overflow-hidden">
                 <img
                   src={course.image}
                   alt={course.title}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute left-0 top-0 rounded-br-lg bg-[#FF5C00] px-3 py-1 text-sm font-semibold text-white">
+                <div className="absolute top-0 left-0 rounded-br-xl bg-[#FF5C00] px-3 py-1 text-sm font-semibold text-white">
                   {course.category}
                 </div>
               </div>
 
               <div className="p-6">
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-500">{course.duration}</span>
-                  <span className="text-sm font-medium text-gray-500">{course.level}</span>
+                <div className="flex items-center justify-between text-sm text-gray-500 mb-2">
+                  <span>{course.duration}</span>
+                  <span>{course.level}</span>
                 </div>
 
-                <h3 className="mb-3 text-xl font-bold text-[#05264E] transition-colors group-hover:text-[#0099FF]">
+                <h3 className="text-xl font-semibold text-[#05264E] group-hover:text-[#0099FF] transition-colors mb-2">
                   {course.title}
                 </h3>
 
-                <div className="mb-3 flex items-center">
-                  <div className="flex items-center">
+                <div className="flex items-center mb-3">
+                  <div className="flex">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
@@ -88,29 +86,27 @@ const TrendingPrograms = () => {
                   <span className="ml-2 text-sm text-gray-600">({course.reviews} reviews)</span>
                 </div>
 
-                <div className="mb-4">
-                  <div className="flex flex-wrap gap-2">
-                    {course.features.slice(0, 3).map((feature, index) => (
-                      <span
-                        key={index}
-                        className="rounded-full bg-[#0099FF]/10 px-3 py-1 text-xs font-medium text-[#0099FF]"
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {course.features.slice(0, 3).map((feature, idx) => (
+                    <span
+                      key={idx}
+                      className="rounded-full bg-[#0099FF]/10 px-3 py-1 text-xs font-medium text-[#0099FF]"
+                    >
+                      {feature}
+                    </span>
+                  ))}
                 </div>
 
-                <div className="mb-4 flex items-center justify-between">
+                <div className="flex items-center justify-between mb-4">
                   <div>
-                    <span className="mr-2 text-lg font-bold text-[#05264E]">
+                    <span className="text-lg font-bold text-[#05264E] mr-2">
                       ₹{course.discountedPrice.toLocaleString()}
                     </span>
-                    <span className="text-sm text-gray-500 line-through">
+                    <span className="text-sm line-through text-gray-500">
                       ₹{course.price.toLocaleString()}
                     </span>
                   </div>
-                  <span className="rounded-full bg-[#FF5C00]/10 px-3 py-1 text-sm font-medium text-[#FF5C00]">
+                  <span className="bg-[#FF5C00]/10 text-[#FF5C00] px-3 py-1 text-sm font-medium rounded-full">
                     {Math.round(((course.price - course.discountedPrice) / course.price) * 100)}% OFF
                   </span>
                 </div>
@@ -118,7 +114,7 @@ const TrendingPrograms = () => {
                 <Button
                   variant="blue"
                   className="w-full"
-                  onClick={() => setSelectedCourse(course)} // Open the popup with the selected course
+                  onClick={() => setSelectedCourse(course)}
                 >
                   Know More
                 </Button>
@@ -131,17 +127,16 @@ const TrendingPrograms = () => {
           <Button variant="outline" size="lg" asChild>
             <Link href="/courses" className="group inline-flex items-center">
               View All Courses
-              <ArrowRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />
+              <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>
         </div>
       </div>
 
-      {/* Conditionally render the popup if selectedCourse is set */}
       {selectedCourse && (
         <CourseDetailsPopup
-          course={selectedCourse} // Pass the selected course to the popup component
-          onClose={() => setSelectedCourse(null)} // Close the popup when it is clicked away or closed
+          course={selectedCourse}
+          onClose={() => setSelectedCourse(null)}
         />
       )}
     </section>
