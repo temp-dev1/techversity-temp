@@ -56,7 +56,7 @@ const CourseDetailsPopup: React.FC<CourseDetailsPopupProps> = ({ course, onClose
     { id: "overview", label: "Overview" },
     { id: "curriculum", label: "Curriculum" },
     { id: "mentors", label: "Mentors" },
-    { id: "fees", label: "Program Fees" }
+
   ];
 
   if (!course) {
