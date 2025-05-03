@@ -13,87 +13,53 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
   return (
     <>
-      <div className="group relative overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-        <div className="relative h-48 overflow-hidden">
-          <img
-            src={course.image}
-            alt={course.title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-          <div className="absolute left-0 top-0 rounded-br-lg bg-[#FF5C00] px-3 py-1 text-sm font-semibold text-white">
-            {course.category}
-          </div>
-        </div>
-        
-        <div className="p-6">
-          <div className="mb-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-500">{course.duration}</span>
-            <span className="text-sm font-medium text-gray-500">{course.level}</span>
-          </div>
-          
-          <h3 className="mb-3 text-xl font-bold text-[#05264E] transition-colors group-hover:text-[#0099FF]">
+      <div className="rounded-xl overflow-hidden shadow-lg bg-white">
+        {/* Image */}
+        <img
+          src={course.image}
+          alt={course.title}
+          className="w-full h-48 object-cover"
+        />
+
+        {/* Title */}
+        <div className="p-4">
+          <h3 className="text-lg font-semibold text-[#05264E] mb-2">
             {course.title}
           </h3>
-          
-          <div className="mb-3 flex items-center">
-            <div className="flex items-center">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  size={16}
-                  className={`${
-                    i < Math.floor(course.rating) ? "fill-[#FF5C00] text-[#FF5C00]" : "text-gray-300"
-                  }`}
-                />
-              ))}
-            </div>
-            <span className="ml-2 text-sm text-gray-600">
-              ({course.reviews} reviews)
+
+          {/* Rating & Students */}
+          <div className="flex items-center text-sm text-gray-600 mb-3">
+            <span className="flex items-center text-orange-500 font-medium">
+              4.8 <Star size={14} className="fill-orange-500 ml-1 mr-2" />
             </span>
+            <span>{course.reviews} Students</span>
           </div>
-          
-          <div className="mb-4">
-            <div className="flex flex-wrap gap-2">
-              {course.features.slice(0, 3).map((feature, index) => (
-                <span
-                  key={index}
-                  className="rounded-full bg-[#0099FF]/10 px-3 py-1 text-xs font-medium text-[#0099FF]"
-                >
-                  {feature}
-                </span>
-              ))}
-            </div>
-          </div>
-          
-          <div className="mb-4 flex items-center justify-between">
-            <div>
-              <span className="mr-2 text-lg font-bold text-[#05264E]">
-                ₹{course.discountedPrice.toLocaleString()}
+
+          {/* Features */}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {course.features.slice(0, 3).map((feature, index) => (
+              <span
+                key={index}
+                className="px-3 py-1 rounded-full text-xs font-medium text-[#0099FF] bg-[#0099FF]/10"
+              >
+                {feature}
               </span>
-              <span className="text-sm text-gray-500 line-through">
-                ₹{course.price.toLocaleString()}
-              </span>
-            </div>
-            <span className="rounded-full bg-[#FF5C00]/10 px-3 py-1 text-sm font-medium text-[#FF5C00]">
-              {Math.round(((course.price - course.discountedPrice) / course.price) * 100)}% OFF
-            </span>
+            ))}
           </div>
-          
-          <Button 
-            variant="blue" 
-            className="w-full"
+
+          {/* Button */}
+          <Button
             onClick={() => setShowDetails(true)}
+            className="w-full bg-gradient-to-r from-[#a855f7] to-[#22d3ee] text-white font-semibold text-sm py-2 rounded-md"
           >
             Know More
           </Button>
         </div>
       </div>
 
+      {/* Popup */}
       {showDetails && (
-        <CourseDetailsPopup 
-          course={course} 
-          onClose={() => setShowDetails(false)} 
-        />
+        <CourseDetailsPopup course={course} onClose={() => setShowDetails(false)} />
       )}
     </>
   );
