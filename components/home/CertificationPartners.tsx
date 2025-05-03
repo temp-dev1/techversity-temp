@@ -32,6 +32,8 @@ const CertificationPartners = () => {
     if (!scrollContainer || partners.length === 0) return;
 
     let isUserScrolling = false;
+    let scrollSpeed = 0.5;
+    let animationFrameId: number;
     let timeout: NodeJS.Timeout;
 
     const handleUserScroll = () => {
@@ -42,26 +44,25 @@ const CertificationPartners = () => {
       }, 1000);
     };
 
-    scrollContainer.addEventListener('scroll', handleUserScroll);
+    const smoothScroll = () => {
+      if (!isUserScrolling && scrollContainer) {
+        scrollContainer.scrollLeft += scrollSpeed;
 
-    const autoScroll = () => {
-      if (!isUserScrolling) {
-        if (
-          scrollContainer.scrollLeft >=
-          scrollContainer.scrollWidth / 2
-        ) {
+        // Reset when halfway through duplicated list
+        if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
           scrollContainer.scrollLeft = 0;
-        } else {
-          scrollContainer.scrollLeft += 1;
         }
       }
+
+      animationFrameId = requestAnimationFrame(smoothScroll);
     };
 
-    const interval = setInterval(autoScroll, 30);
+    scrollContainer.addEventListener('scroll', handleUserScroll);
+    animationFrameId = requestAnimationFrame(smoothScroll);
 
     return () => {
       scrollContainer.removeEventListener('scroll', handleUserScroll);
-      clearInterval(interval);
+      cancelAnimationFrame(animationFrameId);
     };
   }, [partners]);
 
