@@ -20,13 +20,10 @@ const ContactForm: React.FC<ContactFormProps> = ({ isOpen, onClose }) => {
     message: "",
   });
 
-  // Handle clicking outside the form
+  // Close on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        formRef.current &&
-        !formRef.current.contains(event.target as Node)
-      ) {
+      if (formRef.current && !formRef.current.contains(event.target as Node)) {
         onClose();
       }
     };
@@ -34,7 +31,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ isOpen, onClose }) => {
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -69,25 +65,19 @@ const ContactForm: React.FC<ContactFormProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center overflow-y-auto bg-black/50 px-4 py-8">
-
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 px-4 py-8 overflow-y-auto">
       <div
         ref={formRef}
-        className="relative w-full max-w-3xl rounded-3xl bg-white p-8 shadow-2xl md:p-10"
+        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white p-6 shadow-2xl md:p-10"
       >
-        {/* Modern Close Button (partially outside) */}
-<button
-  onClick={onClose}
-  className="absolute z-10 h-10 w-10 rounded-full bg-white shadow-lg hover:bg-gray-100 flex items-center justify-center"
-  style={{
-    top: '-20px',
-    right: '-20px',
-  }}
-  aria-label="Close contact form"
->
-  <X className="h-5 w-5 text-gray-600" />
-</button>
-
+        {/* Close Button - Modern Floating Style */}
+        <button
+          onClick={onClose}
+          className="absolute right-[-20px] top-[-20px] z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition hover:bg-gray-100"
+          aria-label="Close contact form"
+        >
+          <X className="h-5 w-5 text-gray-700" />
+        </button>
 
         {/* Header */}
         <div className="mb-8 text-center">
