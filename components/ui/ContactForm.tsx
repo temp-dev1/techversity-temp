@@ -69,7 +69,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-8">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center overflow-y-auto bg-black/50 px-4 py-8">
+
       <div
         ref={formRef}
         className="relative w-full max-w-3xl rounded-3xl bg-white p-8 shadow-2xl md:p-10"
