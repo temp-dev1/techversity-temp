@@ -43,77 +43,43 @@ const TrendingPrograms = () => {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {courses.map((course) => (
+          {courses.slice(0, 6).map((course) => (
             <div
               key={course._id}
-              className="group relative overflow-hidden rounded-xl bg-white shadow-lg transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="rounded-xl bg-white shadow-md p-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              <div className="relative h-48 w-full overflow-hidden">
+              <div className="rounded-xl overflow-hidden">
                 <img
                   src={course.image}
                   alt={course.title}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-48 object-cover"
                 />
-                <div className="absolute top-0 left-0 rounded-br-xl bg-[#FF5C00] px-3 py-1 text-sm font-semibold text-white">
-                  {course.category}
-                </div>
               </div>
 
-              <div className="p-6">
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-2">
-                  <span>{course.duration}</span>
-                  <span>{course.level}</span>
-                </div>
+              <div className="pt-4">
+                <h3 className="text-lg font-semibold text-[#05264E] mb-1">{course.title}</h3>
 
-                <h3 className="text-xl font-semibold text-[#05264E] group-hover:text-[#0099FF] transition-colors mb-2">
-                  {course.title}
-                </h3>
-
-                <div className="flex items-center mb-3">
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        size={16}
-                        className={`${
-                          i < Math.floor(course.rating)
-                            ? "fill-[#FF5C00] text-[#FF5C00]"
-                            : "text-gray-300"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <span className="ml-2 text-sm text-gray-600">({course.reviews} reviews)</span>
+                <div className="flex items-center text-sm text-gray-600 mb-2">
+                  <span className="flex items-center text-[#FF5C00] mr-2">
+                    <Star className="w-4 h-4 fill-[#FF5C00] text-[#FF5C00]" />
+                    <span className="ml-1">{course.rating}</span>
+                  </span>
+                  <span>• {course.reviews} Students</span>
                 </div>
 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {course.features.slice(0, 3).map((feature, idx) => (
                     <span
                       key={idx}
-                      className="rounded-full bg-[#0099FF]/10 px-3 py-1 text-xs font-medium text-[#0099FF]"
+                      className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-medium"
                     >
                       {feature}
                     </span>
                   ))}
                 </div>
 
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <span className="text-lg font-bold text-[#05264E] mr-2">
-                      ₹{course.discountedPrice.toLocaleString()}
-                    </span>
-                    <span className="text-sm line-through text-gray-500">
-                      ₹{course.price.toLocaleString()}
-                    </span>
-                  </div>
-                  <span className="bg-[#FF5C00]/10 text-[#FF5C00] px-3 py-1 text-sm font-medium rounded-full">
-                    {Math.round(((course.price - course.discountedPrice) / course.price) * 100)}% OFF
-                  </span>
-                </div>
-
                 <Button
-                  variant="blue"
-                  className="w-full"
+                  className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white text-sm font-medium py-2 rounded-md hover:opacity-90"
                   onClick={() => setSelectedCourse(course)}
                 >
                   Know More
