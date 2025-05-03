@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { X as XIcon } from "lucide-react/dist/esm/icons/x";  // Import X icon explicitly
-import { Star } from "lucide-react/dist/esm/icons/star";  // Import Star icon explicitly
-import { Check } from "lucide-react/dist/esm/icons/check";  // Import Check icon explicitly
+import { X, Star, Check } from 'lucide-react';
 import { Course } from "@/models/Course";
 import { Button } from "@/components/ui/button";
 
