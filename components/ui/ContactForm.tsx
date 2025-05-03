@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface ContactFormProps {
   isOpen: boolean;
@@ -10,137 +10,167 @@ interface ContactFormProps {
 }
 
 const ContactForm: React.FC<ContactFormProps> = ({ isOpen, onClose }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
-    course: "",
     message: "",
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Thank you for contacting us! We will get back to you soon.");
-    onClose();
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/queries", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("Thank you for your message! We will contact you soon.");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+        onClose();
+      } else {
+        throw new Error("Failed to submit query");
+      }
+    } catch (error) {
+      console.error("Error submitting query:", error);
+      alert("Failed to submit query. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 px-4 py-8">
-      <div className="relative w-full max-w-[400px] rounded-xl bg-white p-6 shadow-2xl">
+      <div className="relative w-full max-h-[90vh] max-w-md overflow-y-auto rounded-2xl bg-white shadow-xl">
         <button
           onClick={onClose}
-          className="absolute -right-3 -top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white text-gray-500 shadow-lg transition-colors hover:text-gray-700"
+          className="absolute -right-3 -top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow-lg transition-all hover:bg-gray-100"
         >
-          <X size={20} />
+          <X className="h-5 w-5 text-gray-500" />
         </button>
-        
-        <div className="mb-6 text-center">
-          <h3 className="text-2xl font-bold text-dark">Talk to Our Experts</h3>
-          <p className="mt-2 text-sm text-gray-600">Fill in your details and we'll get back to you shortly</p>
-        </div>
-        
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="form-group">
-            <label htmlFor="name" className="form-label">
-              Full Name*
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Enter your full name"
-              className="form-input"
-              required
-            />
+
+        <div className="p-6 md:p-8">
+          <div className="mb-6 text-center">
+            <h2 className="mb-2 text-2xl font-bold text-[#05264E]">
+              Get in Touch
+            </h2>
+            <p className="text-gray-600">
+              Fill out the form below and we'll get back to you shortly.
+            </p>
           </div>
-          
-          <div className="form-group">
-            <label htmlFor="email" className="form-label">
-              Email Address*
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email address"
-              className="form-input"
-              required
-            />
-          </div>
-          
-          <div className="form-group">
-            <label htmlFor="phone" className="form-label">
-              Phone Number*
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Enter your phone number"
-              className="form-input"
-              required
-            />
-          </div>
-          
-          <div className="form-group">
-            <label htmlFor="course" className="form-label">
-              Interested Course
-            </label>
-            <select
-              id="course"
-              name="course"
-              value={formData.course}
-              onChange={handleChange}
-              className="form-input"
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label
+                htmlFor="name"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                required
+                className="w-full rounded-lg border border-gray-300 p-3 focus:border-[#0099FF] focus:outline-none focus:ring-1 focus:ring-[#0099FF]"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="email"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                required
+                className="w-full rounded-lg border border-gray-300 p-3 focus:border-[#0099FF] focus:outline-none focus:ring-1 focus:ring-[#0099FF]"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="phone"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                required
+                className="w-full rounded-lg border border-gray-300 p-3 focus:border-[#0099FF] focus:outline-none focus:ring-1 focus:ring-[#0099FF]"
+                value={formData.phone}
+                onChange={(e) =>
+                  setFormData({ ...formData, phone: e.target.value })
+                }
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="message"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
+                Message
+              </label>
+              <textarea
+                id="message"
+                required
+                rows={4}
+                className="w-full rounded-lg border border-gray-300 p-3 focus:border-[#0099FF] focus:outline-none focus:ring-1 focus:ring-[#0099FF]"
+                value={formData.message}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
+              />
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full bg-[#0099FF] py-6 text-lg"
+              disabled={isLoading}
             >
-              <option value="">Select a course</option>
-              <option value="data-science">Data Science & ML</option>
-              <option value="web-development">Web Development</option>
-              <option value="digital-marketing">Digital Marketing</option>
-              <option value="cloud-computing">Cloud Computing</option>
-              <option value="ui-ux">UI/UX Design</option>
-              <option value="artificial-intelligence">AI & Deep Learning</option>
-            </select>
+              {isLoading ? "Sending..." : "Send Message"}
+            </Button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-600">
+              You can also reach us at{" "}
+              <a
+                href="tel:+91340333374"
+                className="font-semibold text-[#0099FF]"
+              >
+                +91 98765 43210
+              </a>
+            </p>
           </div>
-          
-          <div className="form-group">
-            <label htmlFor="message" className="form-label">
-              Your Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Tell us about your learning goals"
-              rows={3}
-              className="form-input resize-none"
-            ></textarea>
-          </div>
-          
-          <Button type="submit" variant="blue" className="mt-6 w-full py-6 text-base font-semibold">
-            Submit
-          </Button>
-        </form>
+        </div>
       </div>
     </div>
   );
