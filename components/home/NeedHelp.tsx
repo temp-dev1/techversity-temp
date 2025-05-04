@@ -8,7 +8,7 @@ const NeedHelp = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   return (
-    <section className="relative mb-[-120px] mt-16 z-10" id="contact">
+    <section id="contact" className="relative mb-[-120px] mt-16 z-10" id="contact">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mx-auto max-w-[1200px] overflow-hidden rounded-[32px] bg-gradient-to-r from-[#2196F3] via-[#4E6BE7] to-[#8A3FEF]">
           <div className="flex flex-col items-center justify-between gap-8 p-8 md:flex-row md:p-12">
