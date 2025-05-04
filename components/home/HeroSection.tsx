@@ -5,6 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Star } from 'lucide-react';
 
 const HeroSection = () => {
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
   return (
     <section className="relative bg-white pt-8 md:pt-16">
       <div className="container mx-auto px-4 py-4 sm:py-6 md:px-6 md:py-12">
