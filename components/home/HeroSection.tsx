@@ -31,12 +31,14 @@ const HeroSection = () => {
             <div className="mb-6 sm:mb-7 md:mb-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button 
                 className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold bg-[#2196F3] hover:bg-[#1976D2]"
+                onClick={() => scrollToSection('trending-programs')}
               >
                 Explore Now
               </Button>
               <Button
                 variant="outline"
                 className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold border-2 border-[#1a1a1a] text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white"
+                onClick={() => scrollToSection('contact')}
               >
                 Talk to Us
               </Button>
