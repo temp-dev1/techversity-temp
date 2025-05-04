@@ -2,7 +2,7 @@ import HeroSection from "@/components/home/HeroSection";
 import CertificationPartners from "@/components/home/CertificationPartners";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import HowItWorks from "@/components/home/HowItWorks";
-import MarqueePartners from "@/components/home/MarqueePartners";
+//import MarqueePartners from "@/components/home/MarqueePartners";
 import TrendingPrograms from "@/components/home/TrendingPrograms";
 import IndustryExperts from "@/components/home/IndustryExperts";
 import Achievers from "@/components/home/Achievers";
@@ -15,7 +15,7 @@ export default function Home() {
       <CertificationPartners />
       <WhyChooseUs />
       <HowItWorks />
-      <MarqueePartners />
+      {/* <MarqueePartners /> */}
       <TrendingPrograms />
       <IndustryExperts />
       <Achievers />
