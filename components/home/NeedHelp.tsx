@@ -8,20 +8,20 @@ const NeedHelp = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   return (
-    <section id="contact" className="relative mb-[-120px] mt-16 z-10">
+    <section id="contact" className="relative mb-[-80px] mt-12 z-10">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="mx-auto max-w-[1200px] overflow-hidden rounded-[32px] bg-gradient-to-r from-[#2196F3] via-[#4E6BE7] to-[#8A3FEF]">
-          <div className="flex flex-col items-center justify-between gap-8 p-8 md:flex-row md:p-12">
-            <div className="text-white md:max-w-[500px]">
-              <h2 className="mb-4 text-4xl font-bold leading-tight md:text-5xl">
+        <div className="mx-auto max-w-[1000px] overflow-hidden rounded-2xl bg-gradient-to-r from-[#2196F3] via-[#4E6BE7] to-[#8A3FEF]">
+          <div className="flex flex-col items-center justify-between gap-6 p-6 md:flex-row md:p-8">
+            <div className="text-white md:max-w-[420px]">
+              <h2 className="mb-3 text-2xl font-bold leading-tight md:text-3xl">
                 Need help? Feel free to reach out to us!
               </h2>
-              <p className="mb-8 text-lg text-white/90">
+              <p className="mb-6 text-base text-white/90">
                 We generally respond within 1-2 business days
               </p>
               <Button
                 onClick={() => setIsFormOpen(true)}
-                className="rounded-xl bg-white px-8 py-6 text-lg font-semibold text-[#4E6BE7] transition-all hover:bg-white/90"
+                className="rounded-lg bg-white px-6 py-2.5 text-base font-semibold text-[#4E6BE7] transition-all hover:bg-white/90"
               >
                 Talk to Our Experts
               </Button>
@@ -30,7 +30,10 @@ const NeedHelp = () => {
               <img
                 src="https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt="Support Representative"
-                className="h-[400px] w-full rounded-2xl object-cover object-center md:w-[500px]"
+                className="h-[300px] w-full rounded-xl object-cover object-center md:w-[400px] border border-white/10"
+                style={{
+                  clipPath: 'polygon(0 0, 100% 0, 100% 85%, 0 100%)'
+                }}
               />
             </div>
           </div>
