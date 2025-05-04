@@ -78,22 +78,6 @@ const Footer = () => {
                   About Us
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#contact"
-                  className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]"
-                >
-                  Contact
-                </Link>
-              </li>
             </ul>
           </div>
 
