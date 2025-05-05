@@ -12,6 +12,7 @@ interface CourseDetailsPopupProps {
 }
 
 const CourseDetailsPopup: React.FC<CourseDetailsPopupProps> = ({ course, onClose }) => {
+  console.log(course);
   const [activeTab, setActiveTab] = useState("overview");
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
