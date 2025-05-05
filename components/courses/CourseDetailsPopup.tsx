@@ -403,7 +403,7 @@ const CourseDetailsPopup: React.FC<CourseDetailsPopupProps> = ({ course, onClose
               <div className="mt-6 rounded-lg bg-[#06315F] p-4 text-center text-white">
                 <p className="mb-2 text-sm">Need help? Call us at</p>
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+919340333374"
                   className="text-xl font-bold text-[#0099FF]"
                 >
                   +91 93403 33374
