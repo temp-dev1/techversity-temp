@@ -1,8 +1,9 @@
 "use client";
 
-import React from 'react';
+import React, {useState} from 'react';
 import { Button } from '@/components/ui/button';
 import { Star } from 'lucide-react';
+import ContactForm from '@/components/ui/ContactForm';
 
 const HeroSection = () => {
   const scrollToSection = (sectionId: string) => {
@@ -11,7 +12,7 @@ const HeroSection = () => {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
-  
+  const [isFormOpen, setIsFormOpen] = useState(false);
   return (
     <section className="relative bg-white pt-8 md:pt-16">
       <div className="container mx-auto px-4 py-4 sm:py-6 md:px-6 md:py-12">
@@ -45,7 +46,7 @@ const HeroSection = () => {
               <Button
                 variant="outline"
                 className="h-12 sm:h-14 px-6 sm:px-8 text-base sm:text-lg font-semibold border-2 border-[#1a1a1a] text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white"
-                onClick={() => scrollToSection('contact')}
+                onClick={() => setIsFormOpen(true)}
               >
                 Talk to Us
               </Button>
@@ -141,6 +142,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+    <ContactForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />  
     </section>
   );
 };
