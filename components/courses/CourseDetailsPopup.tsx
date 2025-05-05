@@ -34,7 +34,6 @@ const CourseDetailsPopup: React.FC<CourseDetailsPopupProps> = ({ course, onClose
         },
         body: JSON.stringify({
           ...formData,
-          courseId: course._id,
           courseTitle: course.title
         }),
       });
