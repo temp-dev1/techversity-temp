@@ -7,6 +7,7 @@ const EnquirySchema = new mongoose.Schema({
   college: String,
   courseId: { type: String, required: true },
   courseTitle: { type: String, required: true },
+  acceptTerms: { type: Boolean, required: true },
   createdAt: { type: Date, default: Date.now }
 });
 
@@ -18,6 +19,7 @@ export interface Enquiry {
   college?: string;
   courseId: string;
   courseTitle: string;
+  acceptTerms: boolean;
   createdAt: Date;
 }
 
