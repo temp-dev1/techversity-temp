@@ -199,16 +199,6 @@ export default function CoursesPage() {
             </Button>
           </div>
         )}
-
-        <div className="mt-12 rounded-lg bg-[#05264E] p-8 text-center text-white">
-          <h2 className="mb-2 text-2xl font-bold">Can't Find What You're Looking For?</h2>
-          <p className="mb-6 mx-auto max-w-2xl">
-            Contact our education counselors to get personalized course recommendations based on your career goals.
-          </p>
-          <Button variant="orange" size="lg">
-            Request Custom Course
-          </Button>
-        </div>
       </div>
     </div>
   );
