@@ -65,23 +65,24 @@ const Achievers = () => {
           <div className="overflow-hidden rounded-lg bg-white shadow-xl">
             <div className="grid md:grid-cols-2">
               {/* Image Section */}
-              <div className="relative overflow-hidden">
-                <img
-                  src={testimonials[activeIndex].image}
-                  alt={testimonials[activeIndex].name}
-                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:hidden"></div>
-                <div className="absolute bottom-4 left-4 right-4 md:hidden">
-                  <p className="text-lg font-bold text-white">
-                    {testimonials[activeIndex].name}
-                  </p>
-                  <p className="text-sm text-gray-300">
-                    {testimonials[activeIndex].role} at{" "}
-                    {testimonials[activeIndex].company}
-                  </p>
-                </div>
-              </div>
+              {/* Image Section */}
+<div className="relative overflow-hidden w-full h-72 md:h-96">
+  <img
+    src={testimonials[activeIndex].image}
+    alt={testimonials[activeIndex].name}
+    className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+  />
+  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:hidden"></div>
+  <div className="absolute bottom-4 left-4 right-4 md:hidden">
+    <p className="text-lg font-bold text-white">
+      {testimonials[activeIndex].name}
+    </p>
+    <p className="text-sm text-gray-300">
+      {testimonials[activeIndex].role} at{" "}
+      {testimonials[activeIndex].company}
+    </p>
+  </div>
+</div>
 
               {/* Content Section */}
               <div className="flex flex-col justify-center p-6 md:p-8">
