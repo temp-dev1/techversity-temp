@@ -5,7 +5,7 @@ import AboutFeatures from "@/components/about/AboutFeatures";
 //import AboutCertifications from "@/components/about/AboutCertifications";
 import AboutTeam from "@/components/about/AboutTeam";
 import AboutTestimonials from "@/components/about/AboutTestimonials";
-import AboutContact from "@/components/about/AboutContact";
+//import AboutContact from "@/components/about/AboutContact";
 
 export default function AboutPage() {
   return (
@@ -17,7 +17,7 @@ export default function AboutPage() {
       {/* <AboutCertifications /> */}
       <AboutTeam />
       <AboutTestimonials />
-      <AboutContact />
+      {/*<AboutContact /> */}
     </main>
   );
 }
