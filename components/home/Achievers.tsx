@@ -65,11 +65,11 @@ const Achievers = () => {
           <div className="overflow-hidden rounded-lg bg-white shadow-xl">
             <div className="grid md:grid-cols-2">
 {/* Image Section */}
-<div className="relative overflow-hidden w-full h-72 md:h-96 bg-white flex items-center justify-center">
+<div className="relative w-full h-72 md:h-96 bg-white flex items-center justify-center overflow-hidden">
   <img
     src={testimonials[activeIndex].image}
     alt={testimonials[activeIndex].name}
-    className="max-h-full max-w-full object-contain transition-transform duration-500"
+    className="h-full w-full object-contain"
   />
   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:hidden"></div>
   <div className="absolute bottom-4 left-4 right-4 md:hidden">
@@ -81,8 +81,7 @@ const Achievers = () => {
       {testimonials[activeIndex].company}
     </p>
   </div>
-</div>
-              {/* Content Section */}
+</div>              {/* Content Section */}
               <div className="flex flex-col justify-center p-6 md:p-8">
                 <div className="mb-4 text-[#0099FF]">
                   <Quote size={36} />
