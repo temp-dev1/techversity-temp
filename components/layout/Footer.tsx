@@ -72,7 +72,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="#about"
+                  href="/about"
                   className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]"
                 >
                   About Us
@@ -84,14 +84,6 @@ const Footer = () => {
           <div>
             <h3 className="mb-4 text-[18px] font-semibold">More</h3>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  href="#"
-                  className="text-[15px] text-gray-300 transition-colors hover:text-[#2196F3]"
-                >
-                  FAQs
-                </Link>
-              </li>
               <li>
                 <Link
                   href="#"
