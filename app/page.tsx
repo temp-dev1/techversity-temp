@@ -1,6 +1,6 @@
 import Head from "next/head";
 import HeroSection from "@/components/home/HeroSection";
-import CertificationPartners from "@/components/home/CertificationPartners";
+//import CertificationPartners from "@/components/home/CertificationPartners";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import HowItWorks from "@/components/home/HowItWorks";
 //import MarqueePartners from "@/components/home/MarqueePartners";
@@ -50,7 +50,7 @@ export default function Home() {
     
     <main className="min-h-screen">
       <HeroSection />
-      <CertificationPartners />
+      {/*<CertificationPartners /> */}
       <WhyChooseUs />
       <HowItWorks />
       {/* <MarqueePartners /> */}
